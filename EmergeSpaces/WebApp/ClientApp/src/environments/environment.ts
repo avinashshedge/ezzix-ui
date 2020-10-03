@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-   apiUrl:'http://localhost:51545/api',
+   apiUrl:'https://ezzixbuildwebapi.azurewebsites.net/api',
    notificationUrl:'http://localhost:5001'
 };
