@@ -1,0 +1,62 @@
+<mat-card>
+    <mat-card-content>
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search templates">
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="55" fxFlex.gt-xs="55" fxFlex="100">
+        </div>
+        <div fxLayoutAlign="center end" class="p-10" fxFlex.gt-sm="20" fxFlex.gt-xs="20" fxFlex="100">
+
+            <button mat-raised-button type="button" (click)="backToCampaignList()" style="margin-right: 10px;">Cancel</button>
+            <button mat-raised-button color="primary"
+            type="button" (click)="openSMSTemplateModal()">New Template</button>
+        </div>
+      </div>
+        <div fxLayout="row wrap">
+          <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <mat-table #table [dataSource]="dataSource" matSort
+                    (matSortChange)="sortChange($event)">
+
+            <ng-container matColumnDef="templateName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{element.templateName}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description" >
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="visibility">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Visibility </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.visibility}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="createdBy">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Created By </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="createdDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.createdDate | date : "dd/MM/y hh:mm a"}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <!-- <mat-footer-row *matFooterRowDef="['loading']" ngClass="{'hide-loading-row':dataSource !=null}"></mat-footer-row> -->
+
+          </mat-table>
+          <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20,50]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>

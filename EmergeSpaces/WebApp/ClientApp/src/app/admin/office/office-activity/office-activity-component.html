@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>Office Information</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="officeForm" (submit)="onSubmit()">
+    
+<div mat-dialog-content>
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Office name" [formControl]="officeForm.controls['officeName']" required>
+          </mat-form-field>
+          <mat-hint
+            *ngIf="officeForm.controls['officeName'].hasError('required') && officeForm.controls['officeName'].touched"
+            class="text-danger font-14">You must include a office name.</mat-hint>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Office No" maxlength="10" [formControl]="officeForm.controls['phoneNo']">
+          </mat-form-field>
+        </div>        
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Address" [formControl]="officeForm.controls['address']">
+          </mat-form-field>
+        </div>        
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Country" [formControl]="officeForm.controls['countryId']">
+              <mat-option *ngFor="let x of countryList" [value]="x.id">{{x.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select State" [formControl]="officeForm.controls['stateId']">
+              <mat-option *ngFor="let x of stateList" [value]="x.id">{{x.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="City" [formControl]="officeForm.controls['city']">
+          </mat-form-field>
+        </div>
+
+      </div>
+   
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!officeForm.valid">Submit</button>
+</div>
+
+</form>

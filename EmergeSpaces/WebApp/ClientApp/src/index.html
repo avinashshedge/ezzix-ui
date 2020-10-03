@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Ezzix Build</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin="anonymous"></script>
+    <script src="//editor.unlayer.com/embed.js"></script>
+
+</head>
+
+<body>
+    <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '488258201887711',
+            cookie: true,
+            xfbml      : true,
+            version    : 'v6.0',
+            status:true
+          });
+          //FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "https://connect.facebook.net/en_US/all.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <app-root></app-root>
+
+</body>
+
+</html>

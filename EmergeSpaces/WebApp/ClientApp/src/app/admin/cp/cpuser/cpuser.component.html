@@ -1,0 +1,82 @@
+<h1 mat-dialog-title>CP User Information</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="cpUserForm" (submit)="onSubmit()">
+    
+<div mat-dialog-content>
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="First name" [formControl]="f.firstName" required>
+          </mat-form-field>
+          <mat-hint
+            *ngIf="f.firstName.hasError('required') && f.firstName.touched"
+            class="text-danger font-14">You must include a firm name.</mat-hint>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Last Name" [formControl]="f.lastName">
+          </mat-form-field>
+        </div>        
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-form-field>
+              <input matInput placeholder="Mobile Number" maxlength="10" required 
+              [formControl]="f.mobileNo" type="text">
+            </mat-form-field>
+            <small *ngIf="f.mobileNo.hasError('required') && f.mobileNo.touched" class="text-danger font-14">You must include an phone number.</small>
+            <small *ngIf="f.mobileNo.errors?.invalidNumber && f.mobileNo.touched" class="text-danger font-14">You must include a valid phone number.</small>
+          </div>  
+  
+          <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-form-field>
+              <input matInput placeholder="Email Id" required [formControl]="f.emailId" type="email">
+            </mat-form-field>
+            <small *ngIf="f.emailId.hasError('required') && f.emailId.touched" class="text-danger font-14">You must include an email address.</small>
+            <small *ngIf="f.emailId.errors?.email && f.emailId.touched" class="text-danger font-14">You must include a valid email address.</small>
+          </div>  
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" [formControl]="f.dob" placeholder="Date of birth">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div> 
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+            <label class="m-r-20">Gender :</label>
+            <mat-radio-group [formControl]="f.gender">
+              <mat-radio-button value="male" class="m-r-10">Male</mat-radio-button>
+              <mat-radio-button value="female">Female</mat-radio-button>
+            </mat-radio-group>
+            <small *ngIf="!f.gender.valid && f.gender.touched" class="mat-text-warn">You must select a gender.</small>
+        </div>        
+      </div>
+
+      
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select CP Firm" [formControl]="f.firmId">
+              <mat-option *ngFor="let x of firmList" [value]="x.id">{{x.firmName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+   
+
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!cpUserForm.valid">Submit</button>
+</div>
+
+</form>

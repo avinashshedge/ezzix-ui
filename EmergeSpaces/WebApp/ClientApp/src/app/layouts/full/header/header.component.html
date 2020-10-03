@@ -1,0 +1,57 @@
+<!-- ============================================================== -->
+<!-- Notification - style you can find in header.scss -->
+<!-- ============================================================== -->
+<button [matMenuTriggerFor]="notification" (click)="onNotificationClick()" mat-icon-button class="m-r-10">
+    <mat-icon>message</mat-icon>
+    <div class="notify" *ngIf="newMessageAvailable">
+        <span class="heartbit"></span>
+        <span class="point"></span>
+    </div>
+</button>
+<mat-menu #notification="matMenu" class="mymegamenu">
+    <div class="mailbox">
+        <ul>
+            <li>
+                <div class="drop-title">Notifications</div>
+            </li>
+            <li>
+                <div class="message-center">
+                    <perfect-scrollbar [config]="config">
+                        <!-- Message -->
+                        <div *ngFor="let notification of notifications">
+                            <a href="{{notification.navigationUrl}}">
+                              <!-- <div class="round {{notification.round}}">
+                                  <i class="{{notification.icon}}"></i>
+                              </div> -->
+                              <div class="mail-content">
+                                <h5>{{notification.messageType}}</h5>
+                                <span class="mail-desc">{{notification.message}}</span>
+                                <span class="time">{{notification.messageDate | date : "dd/MM/y hh:mm a" }}</span>
+                              </div>
+                            </a>
+                        </div>
+                    </perfect-scrollbar>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</mat-menu>
+
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5"
+    style="background-color: whitesmoke;">
+    <!-- <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"> </button> -->
+    <i class="profile-dot">
+      <span style="color: black;">{{initials}}</span>
+    </i>
+    <mat-menu #profile="matMenu" class="mymegamenu">
+      <div style="margin:10px;text-align: center;">{{userName}} </div>
+      <mat-divider></mat-divider>
+        <button mat-menu-item (click)="onReset()">
+            <mat-icon>account_box</mat-icon> Reset Password </button>
+        <button mat-menu-item (click)="onLogout()">
+            <mat-icon>exit_to_app</mat-icon> Sign Out </button>
+    </mat-menu>

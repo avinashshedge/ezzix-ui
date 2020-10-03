@@ -1,0 +1,92 @@
+.login-panel-top {
+    background-image: url('../../../assets/images/Home_bg.png');
+    width: 510px;
+    height: 185px;
+}
+
+.login-panel{
+    width: 468px;
+    position: relative;
+    background: #fff;
+    padding: 40px;
+    margin-left: 21px;
+    border-radius: unset;
+    transition: unset;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    box-shadow: none !important;
+
+}
+
+.login-header{
+    position: absolute;
+    font-family: "-apple-system", Helvetica, Arial, serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 30px;
+    color: #2a2a2a;
+    text-align: center;
+    letter-spacing: 0.8px;
+    background-color: rgba(255, 255, 255, 0);
+    top: 25%;
+    left: 65%;
+  }
+  .login-subtitle{
+    top: 30%;
+    left: 63%;
+    position: absolute;
+    opacity: 1.0;
+    font-family: "-apple-system", Helvetica, Arial, serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: rgba(42, 42, 42, 1.0);
+    text-align: center;
+    letter-spacing: 0.45px;
+    line-height: 25.0px;
+  }
+
+  .login-footer{
+    height: 16px;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 130px;
+    color:white;
+    font-family: "-apple-system", Helvetica, Arial, serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 10px;
+    text-align: center;
+    letter-spacing: 0.45px;
+    line-height: 16.0px;
+}
+.tag-line{
+    color: white;
+    position: absolute;
+    top: 60%;
+    left: 20%;
+    line-height: 1;
+    font-family: "-apple-system", Helvetica, Arial, serif;
+  }
+  .first-tag-line{
+    font-size: 35px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .logo{
+    top: 10%;
+    position: absolute;
+    left: 5%;
+  }
+
+  .forgot-password{
+    font-family: "-apple-system", Helvetica, Arial, serif;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    color: #1b9ff4 !important;
+    cursor: pointer;
+  }

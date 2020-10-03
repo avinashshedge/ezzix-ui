@@ -1,0 +1,62 @@
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Company name :</label>
+        <label style="font-weight: 600;">{{ companyModel.companyName}} </label>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Company code :</label>
+        <label>{{ companyModel.code}} </label>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">GSTIN No :</label>
+        <label>{{ companyModel.gstNo}} </label>
+      </div>      
+    </div>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Address :</label>
+        <label>{{ companyModel.address}} </label>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Country :</label>
+        <label>{{ companyModel.countryId}} </label>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">State :</label>
+        <label>{{ companyModel.stateId}} </label>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">City :</label>
+        <label>{{ companyModel.city}} </label>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Zipcode :</label>
+        <label>{{ companyModel.zipCode}} </label>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Phone No :</label>
+        <label>{{ companyModel.phoneNo}} </label>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Fax :</label>
+        <label>{{ companyModel.fax}} </label>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Website :</label>
+        <label>{{ companyModel.websiteUrl}} </label>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <label class="m-r-20" style="font-weight: 600;">Currency :</label>
+        <label>{{ companyModel.currencyId}} </label>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

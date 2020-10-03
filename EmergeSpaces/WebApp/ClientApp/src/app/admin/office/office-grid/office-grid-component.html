@@ -1,0 +1,74 @@
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search offices">
+        </mat-form-field>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="65" fxFlex.gt-xs="65" fxFlex="100">
+      </div>
+      <div fxLayoutAlign="center end" class="p-10" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+        <button mat-raised-button (click)="onCreate()" color="primary">
+          Add Office</button>
+      </div>
+    </div>
+
+    <div class="row wrap">
+
+      <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+
+        <mat-table #table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="officeName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.officeName}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="city">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="phoneNo">
+            <mat-header-cell *matHeaderCellDef> Phone No </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.phoneNo }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="createdDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.createdDate | date : "dd/MM/y hh:mm a" }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button (click)="onEdit(row)">
+                <mat-icon>launch</mat-icon>
+              </button>
+              <button mat-icon-button color="warn">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+                Loading data...
+            </mat-footer-cell>
+          </ng-container> -->
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <!-- <mat-footer-row *matFooterRowDef="['loading']" ngClass="{'hide-loading-row':dataSource !=null}"></mat-footer-row> -->
+
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20,50]" showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

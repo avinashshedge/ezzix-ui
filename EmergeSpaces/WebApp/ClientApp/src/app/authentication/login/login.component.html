@@ -1,0 +1,81 @@
+<div class="login-register" style="background-image:url(assets/images/bg.jpg);">
+    <div class="logo">
+        <img height="50px" src="./assets/images/Logo.png">        
+    </div>
+
+    <div class="login-register-box" style="padding-left: 15%;padding-top: 0% !important;">
+        <div class="login-panel-top"></div>
+        <div class="login-header">
+            <span>LOGIN</span>
+          </div>
+  
+          <div class="login-subtitle">
+            Enter Your Credentials
+          </div>
+        <mat-card class="login-panel">
+            <mat-card-content style="padding: 50px; min-height: 400px;">
+                <form [formGroup]="form" (ngSubmit)="onLogin()">
+                    <!-- <div class="text-center">
+                        <img alt="homepage" src="assets/images/logo-icon.png">
+                        <h4 class="m-t-0">Login to App</h4>
+                    </div> -->
+
+                    <div fxLayout="row wrap">
+                        <!-- col full-->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" style="margin-bottom: 15px;">
+                            <mat-form-field>
+                                <input matInput placeholder="Username" [formControl]="form.controls['username']">
+                            </mat-form-field>
+                            <small *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="text-danger support-text">Username is required.</small>
+                        </div>
+                        <!-- col full-->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" style="margin-bottom: 15px;">
+                            <mat-form-field>
+                                <input matInput type="password" placeholder="Password" [type]="hide ? 'password' : 'text'" [formControl]="form.controls['password']">
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </mat-form-field>
+                            <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger support-text">Password is required.</small>
+                        </div>
+                       
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" style="margin-bottom: 15px;">
+                            <!-- server-side validation errors -->
+                            <mat-error *ngIf="hasServerError">
+                                {{ serverError }}
+                            </mat-error>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" class="text-right">
+                            
+                        </div>
+
+                        <!-- col half-->
+                        <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" class="text-right forgot-password">
+                            <a (click)="onForgotPassword()" class="link">Forgot password?</a>
+                        </div>
+                        <!-- col full-->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <button mat-raised-button color="primary" class="btn-block btn-lg m-t-20 m-b-20" style="font-size: 14px !important;"
+                             type="submit" [class.spinner]="loading" [disabled]="!form.valid || loading">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+        <div class="login-footer" >
+            <div class="copyright">
+                <span class="span1">Copyright © 2020 - EZZIZ Build | All Rights Reserved.</span>
+            </div>
+          </div>
+    </div>
+
+    <!-- <div class="tag-line">
+        <div class="first-tag-line">
+          <span style="font-size: 25px;">YOUR</span><br style="line-height: 1px;">
+          <span style="color: #3191e6;">CREATION</span>
+        </div>
+        <div class="first-tag-line" style="margin-left: 50px;">
+          <span style="font-size: 25px;">OUR</span><br style="line-height: 1px;">
+          <span style="color: #3191e6;">BUILD</span>
+          <img src="./../../assets/images/Arrow_blue.png" width="35px" height="35px">
+        </div>
+     </div> -->
+</div>

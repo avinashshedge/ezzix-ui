@@ -1,0 +1,51 @@
+<form [formGroup]="templateForm" (ngSubmit)="onSave()">
+
+<div mat-dialog-content>
+      <div fxLayout="row wrap">
+        <div  fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Template name" [formControl]="f.templateName" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div  fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field appearance="fill">
+            <textarea #descriptionText matInput cols="55" rows="6" [formControl]="f.description" required></textarea>
+          </mat-form-field>
+        </div>
+        <div  fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+            <mat-select placeholder="Select Parameter" [formControl]="f.inputParameter" (ngModelChange)="onParamaterSelection(descriptionText)" >
+                <mat-option *ngFor="let x of parameterList" [value]="x.key">{{x.value}}</mat-option>
+              </mat-select>
+          </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div  fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <mat-form-field>
+            <mat-select placeholder="Select Type" [formControl]="f.type">
+              <mat-option *ngFor="let x of types" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div  fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <mat-form-field>
+            <mat-select placeholder="Select Visibility" [formControl]="f.visibility">
+              <mat-option *ngFor="let x of visibilityList" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+</div>
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!templateForm.valid">Submit</button>
+</div>
+
+</form>

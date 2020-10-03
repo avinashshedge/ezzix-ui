@@ -1,0 +1,60 @@
+<mat-card>
+    <mat-card-content>
+        <mat-card-actions fxLayoutAlign="end" (click)="onCreate()">
+          <button mat-raised-button color="primary">Add</button>
+        </mat-card-actions>
+
+        <div class="responsive-table">
+          <mat-table #table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <a style="color: blue;cursor: pointer;"
+                    [routerLink]="['/', 'marketing','page-detail',element.id]">
+                    {{element.name}}
+                </a>
+              </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+              </ng-container>
+
+            <ng-container matColumnDef="url">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Url </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.url}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="script">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Script </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.script}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="leadCount">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Leads </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.leadCount}} </mat-cell>
+              </ng-container>
+
+            <ng-container matColumnDef="createdBy">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Created By </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.createdBy}} </mat-cell>
+              </ng-container>
+
+            <ng-container matColumnDef="createdDate" >
+              <mat-header-cell *matHeaderCellDef mat-sort-header > Created On </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.createdDate | date : "dd/MM/y hh:mm a"}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <!-- <mat-footer-row *matFooterRowDef="['loading']" ngClass="{'hide-loading-row':dataSource !=null}"></mat-footer-row> -->
+
+          </mat-table>
+          <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20,50]" showFirstLastButtons></mat-paginator>
+        </div>
+
+    </mat-card-content>
+  </mat-card>

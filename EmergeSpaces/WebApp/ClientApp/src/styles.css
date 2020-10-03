@@ -1,0 +1,306 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+@import '~ngx-daterangepicker-material/daterangepicker-theme.scss';
+
+.fa {
+  color: black !important;
+}
+.fas {
+  color: black !important;
+}
+
+
+body {
+  margin: 0;
+}
+.mat-toolbar.mat-primary {
+  background: #2F83BA !important;
+  color: white;
+}
+.mat-primary-ext{
+  background: #2F83BA !important;
+  color: white !important;
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }
+
+/* notification */
+snack-bar-container.success {
+  background-color: #5cb85c;
+  color : #fff;
+}
+
+snack-bar-container.warn {
+  background-color: #f99157;
+  color : #fff;
+}
+
+.mat-drawer {
+  background-color: #272735 !important;
+}
+
+snack-bar-container.notification simple-snack-bar{
+  font-size: 14px !important;
+}
+
+.mat-dialog-title {
+  margin: 0 0 0px !important;
+  font-size: 16px !important;
+}
+
+.hide{
+  display: none;
+}
+
+
+.hide-loading-row{
+    display: none;
+}
+
+table {
+  width: 100%;
+}
+
+.m-r-5{
+  margin-right: 5px;
+}
+
+
+.m-r-10{
+  margin-right: 10px;
+}
+.mat-card-form-title{
+  font-size: 15px !important;
+  background: aliceblue;
+  padding: 10px;
+  margin: 10px 0;
+}
+.mat-raised-button{
+  line-height: 30px !important;
+  font-weight: 400 !important;
+  font-size: 12px !important;
+}
+.mat-icon{
+  height: 18px !important;
+  width: 16px !important;
+}
+.material-icons{
+  font-size: 16px !important;
+}
+/* .mat-cell {
+  font-size: 14px;
+  min-height: 48px;
+  text-align: center;
+  border-right: 1px solid black;
+} */
+
+mat-footer-row mat-footer-cell{
+    text-align: center;
+    font-weight: bold;
+}
+.responsive-table .mat-cell:first-of-type, .responsive-table
+.mat-footer-cell:first-of-type,
+.responsive-table .mat-header-cell:first-of-type {
+  padding-left:none !important;
+}
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
+  border-bottom: none !important;
+}
+.status-label {
+  min-width: 85px;
+}
+.text-label {
+  padding: 1px 10px;
+  text-align: center;
+  border-radius: 2px;
+  display: inline-block;
+  letter-spacing: .5px;
+  font-size: 12px;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.ngx-timepicker-field{
+  display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.mat-tab-label, .mat-tab-link {
+  font-family: inherit;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.lead-card-title{
+  color:#20202B !important;
+  font-size: 16px !important;
+  margin-bottom: 10px !important;
+}
+.lead-card-row{
+  margin:10px 0 !important;
+  padding:10px;
+  border-radius:4px;
+  background-color:#E6E6F1;
+}
+.lead-card-row-subtitle{
+  color: #747580 !important;
+}
+.lead-property-row{
+  background-color: #E6E6F1;
+  border-radius: 4px;
+  margin: 5px;
+  padding: 5px;
+}
+
+
+
+
+mat-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 2px;
+}
+
+mat-row, mat-header-row,mat-footer-row {
+  min-height: 35px !important;
+}
+
+th{
+  border-top: 1px solid lightgrey;
+  padding: 10px !important;
+  background-color: #f4f4f4;
+}
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type
+{
+  padding: 10px !important;
+  border-left: 1px solid lightgrey;
+}
+
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type
+{
+  padding: 10px !important;
+  border-bottom: 1px solid lightgrey !important;
+}
+mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type
+{
+  padding-left: 10px !important;
+}
+mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
+  padding-right: 10px !important;
+  border-right: 1px solid lightgrey;
+}
+mat-cell, mat-header-cell, mat-footer-cell {
+  display: inline-block !important;
+}
+mat-header-cell {
+  font-weight: 600 !important;
+  padding: 10px !important;
+  color: #333 !important;
+  background-color: #f4f4f4;
+  border-left: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+  border-top: 1px solid lightgrey;
+}
+
+mat-cell {
+  font-size: 12px !important;
+  padding: 10px;
+  border-bottom: 1px solid lightgrey;
+  white-space: normal !important;
+  border-left: 1px solid lightgrey;
+}
+mat-row, mat-header-row, mat-footer-row {
+  display: flex;
+  border-width: 0;
+  border-bottom-width: 0px;
+  border-style:none !important;
+  align-items:unset !important
+}
+
+mat-row {
+  border: 1px solid #f2f0ee;
+}
+
+.mat-column-action {
+  flex: 0 0 10%;
+}
+
+.mat-column-actions {
+  flex: 0 0 10%;
+}
+
+/*
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+
+th.mat-header-cell td.mat-header-cell {
+  padding: 10px;
+  border: 1px solid #f2f0ee;
+}
+
+td.mat-cell {
+  padding: 10px;
+  border: 1px solid #f2f0ee;
+}
+
+tr.mat-row {
+  background: #79a1d8;
+  border: 1px solid #f2f0ee;
+}
+*/
+
+.rule-li{
+  border: 1px solid lightblue;
+  padding: 5px;
+  margin:5px;
+  border-radius: 4px;
+  background: aliceblue;
+  font-size: 12px;
+}
+
+
+  .alt .mat-form-field-infix {
+    width: auto !important;
+  }
+
+  .alt .mat-form-field .mat-select-value {
+    max-width: 100%;
+    width: auto;
+    padding-right: 10px;
+  }
+
+  .task-complete{
+    color: green !important;
+  }
+
+  .task-inprogress{
+    color: blue !important;
+  }
+
+  .task-due{
+    color: red !important;
+  }

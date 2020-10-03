@@ -1,0 +1,235 @@
+<!-- <div fxLayout="row wrap" fxLayoutAlign="end">
+
+    <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+
+      <mat-select placeholder="Select Project" [(ngModel)]="selectedProject" multiple (ngModelChange)="onProjectChange()">
+        <mat-option *ngFor="let project of projects" [value]="project.id">{{project.projectName}}</mat-option>
+      </mat-select>
+    </div>
+</div> -->
+
+<div fxLayout="row">
+    <div fxLayout="row" fxFlexAlign="start start" fxFlex.gt-sm="33.3" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card style="width:410px">
+            <mat-card-content>
+                <mat-card-title>Active Users</mat-card-title>
+                <div id="activeusers-chart">
+                    <apx-chart [series]="ActiveUserChartOptions.series" [chart]="ActiveUserChartOptions.chart"
+                        [labels]="ActiveUserChartOptions.labels" [responsive]="ActiveUserChartOptions.responsive"
+                        [tooltip]="ActiveUserChartOptions.tooltip" [legend]="ActiveUserChartOptions.legend"
+                        [colors]="ActiveUserChartOptions.colors" [dataLabels]="ActiveUserChartOptions.dataLabels"
+                        [plotOptions]="ActiveUserChartOptions.plotOptions" [stroke]="ActiveUserChartOptions.stroke">
+                    </apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxLayout="row" fxFlexAlign="start start" fxFlex.gt-sm="33.3" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Project wise Users</mat-card-title>
+                <div>
+                    <mat-table #table [dataSource]="dataSource" matSort>
+                        <ng-container matColumnDef="key">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </mat-header-cell>
+                          <mat-cell *matCellDef="let element">  {{element.key}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="value" >
+                          <mat-header-cell *matHeaderCellDef mat-sort-header > User Count </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                    </mat-table>
+                    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxLayout="row" fxFlexAlign="start start" fxFlex.gt-sm="33.3" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Login Leaderboard</mat-card-title>
+                <div>
+                    <mat-table #logintable [dataSource]="loginDataSource" matSort>
+                        <ng-container matColumnDef="key">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+                          <mat-cell *matCellDef="let element">  {{element.key}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="value" >
+                          <mat-header-cell *matHeaderCellDef mat-sort-header > Count </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="loginDisplayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: loginDisplayedColumns;"></mat-row>
+                    </mat-table>
+                    <mat-paginator #loginPaginator="matPaginator" [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<div fxLayout="row wrap">
+    <div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Email Usage</mat-card-title>
+                <div fxLayout="row wrap">
+                <!-- column -->
+                    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                        <mat-card>
+                            <mat-card-content>
+                                <!-- Row -->
+                                <div class="d-flex no-block">
+                                    <!-- column -->
+                                    <div class="m-r-10 no-shrink">
+                                        <button mat-fab mat-card-icon class="shadow-none bg-inverse  bg-success">
+                                            <mat-icon>account_circle</mat-icon>
+                                        </button>
+                                    </div>
+                                    <!-- column -->
+                                    <div>
+                                        <h3 class="m-0">300</h3>
+                                        <h4 class="text-muted m-0">Credit</h4>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <!-- column -->
+                    <!-- column -->
+                    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                        <mat-card>
+                            <mat-card-content>
+                                <!-- Row -->
+                                <div class="d-flex no-block">
+                                    <!-- column -->
+                                    <div class="m-r-10 no-shrink">
+                                        <button mat-fab color="warn" mat-card-icon class="shadow-none  bg-warning">
+                                            <mat-icon>local_mall</mat-icon>
+                                        </button>
+                                    </div>
+                                    <!-- column -->
+                                    <div>
+                                        <h3 class="m-0">{{300 - emailCredits}}</h3>
+                                        <h4 class="text-muted m-0">Spend</h4>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <!-- column -->
+                    <!-- column -->
+                    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                        <mat-card>
+                            <mat-card-content>
+                                <!-- Row -->
+                                <div class="d-flex no-block">
+                                    <!-- column -->
+                                    <div class="m-r-10 no-shrink">
+                                        <button mat-fab color="accent" mat-card-icon class="shadow-none">
+                                            <mat-icon>stars</mat-icon>
+                                        </button>
+                                    </div>
+                                    <!-- column -->
+                                    <div>
+                                        <h3 class="m-0">{{emailCredits}}</h3>
+                                        <h4 class="text-muted m-0">Balance</h4>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>SMS Usage</mat-card-title>
+                <div fxLayout="row wrap">
+                    <!-- column -->
+                    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                        <mat-card>
+                            <mat-card-content>
+                                <!-- Row -->
+                                <div class="d-flex no-block">
+                                    <!-- column -->
+                                    <div class="m-r-10 no-shrink">
+                                        <button mat-fab mat-card-icon class="shadow-none bg-inverse  bg-success">
+                                            <mat-icon>account_circle</mat-icon>
+                                        </button>
+                                    </div>
+                                    <!-- column -->
+                                    <div>
+                                        <h3 class="m-0">300</h3>
+                                        <h4 class="text-muted m-0">Credit</h4>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <!-- column -->
+                    <!-- column -->
+                    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                        <mat-card>
+                            <mat-card-content>
+                                <!-- Row -->
+                                <div class="d-flex no-block">
+                                    <!-- column -->
+                                    <div class="m-r-10 no-shrink">
+                                        <button mat-fab color="warn" mat-card-icon class="shadow-none  bg-warning">
+                                            <mat-icon>local_mall</mat-icon>
+                                        </button>
+                                    </div>
+                                    <!-- column -->
+                                    <div>
+                                        <h3 class="m-0">10</h3>
+                                        <h4 class="text-muted m-0">Spend</h4>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <!-- column -->
+                    <!-- column -->
+                    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                        <mat-card>
+                            <mat-card-content>
+                                <!-- Row -->
+                                <div class="d-flex no-block">
+                                    <!-- column -->
+                                    <div class="m-r-10 no-shrink">
+                                        <button mat-fab color="accent" mat-card-icon class="shadow-none">
+                                            <mat-icon>stars</mat-icon>
+                                        </button>
+                                    </div>
+                                    <!-- column -->
+                                    <div>
+                                        <h3 class="m-0">{{ smsCredits }}</h3>
+                                        <h4 class="text-muted m-0">Balance</h4>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<form [formGroup]="templateForm" (ngSubmit)="onRun()">
+    
+    <div mat-dialog-content>
+          <div fxLayout="row wrap">
+            <div  fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+              <mat-form-field>
+                <input matInput placeholder="Campaign name" [formControl]="f.name" required>
+              </mat-form-field>         
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div  fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+            <mat-form-field>
+                <mat-select placeholder="Select Leads" [formControl]="f.leadListId" required>
+                  <mat-option *ngFor="let x of leads" [value]="x.id">{{x.listName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div  fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+              <mat-form-field appearance="fill">
+                <textarea #descriptionText matInput cols="55" rows="6" [formControl]="f.template" required></textarea>
+              </mat-form-field>
+            </div>
+            <div  fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+                <mat-select placeholder="Select Parameter" [formControl]="f.inputParameter" (ngModelChange)="onParamaterSelection(descriptionText)" >
+                    <mat-option *ngFor="let x of parameterList" [value]="x.key">{{x.value}}</mat-option>
+                  </mat-select>
+              </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div class="p-10" fxFlex.gt-sm="33" fxFlex.gt-xs="33" fxFlex="100">
+              <mat-form-field>
+                <input matInput [matDatepicker]="startdatepicker" [formControl]="f.scheduledOn"
+                  placeholder="Schedule">
+                <mat-datepicker-toggle matSuffix [for]="startdatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #startdatepicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="p-10" fxFlex.gt-sm="33" fxFlex.gt-xs="33" fxFlex="100">
+              <div class="ngx-timepicker-field">
+                <ngx-timepicker-field [formControl]="f.scheduleToTime" [defaultTime]="'10:00 am'" [controlOnly]="true"></ngx-timepicker-field>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div  fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+            <mat-form-field>
+                <mat-select placeholder="Select Type" [formControl]="f.type">
+                  <mat-option *ngFor="let x of types" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <div fxLayout="row wrap">
+            <div  fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+            <mat-form-field>
+                <mat-select placeholder="Select Visibility" [formControl]="f.visibility">
+                  <mat-option *ngFor="let x of visibilityList" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+       
+    </div>
+    <mat-divider></mat-divider>
+    
+    <div mat-dialog-actions fxLayoutAlign="end">
+      <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!templateForm.valid">Submit</button>
+    </div>
+    
+    </form>
+    

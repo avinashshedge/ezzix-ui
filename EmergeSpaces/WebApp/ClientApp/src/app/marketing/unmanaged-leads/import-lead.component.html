@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Import Leads</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="100">
+          <input class="form-control" type="file" id="fileInput" #fileInput hidden
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+
+          <button mat-raised-button color="primary"
+          type="button" (click)="openFileUpload($event)">
+          <i class="fa fa-upload"></i> Browse </button>
+
+      </div>
+      <div class="p-10" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="100">
+          <label>Click <a href="assets/sample.csv" style="color:blue;cursor:pointer;">here</a> to download sample file</label>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <label style="color:red;">Note: supports csv file with comma separated values</label>
+    </div>
+    <div fxLayout="row wrap" *ngIf="showResult">
+      <div class="p-10" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="100">
+        <label class="m-r-20">{{ message }}</label>
+      </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="showResult">
+      <div class="p-10" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="100">
+        <label class="m-r-20">Added Leads : {{ addedLead }}</label>
+        <label class="m-r-20">Error Leads : {{ errorLead }}</label>
+        <label class="m-r-20">Duplicate Leads : {{ duplicateLead }}</label>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="closeModal()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="isSubmitted"
+   (click)="onImport()">Import</button>
+</div>

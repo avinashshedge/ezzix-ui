@@ -1,0 +1,89 @@
+<h1 mat-dialog-title>Add Activity</h1>
+<mat-divider></mat-divider>
+
+<form [formGroup]="activityForm" (ngSubmit)="onSubmit(); clicked = true;">
+<div mat-dialog-content>
+  <div fxLayout="row wrap">
+    <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+      <mat-form-field>
+        <mat-select placeholder="Select Activity Type" [formControl]="f.activityId"
+            (ngModelChange)="onActivityTypeChange()">
+          <mat-option *ngFor="let x of activityTypes" [value]="x.id">{{x.activityName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="f.activityId.hasError('required') && f.activityId.touched">
+          Activity type is required
+      </mat-error>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+      <mat-form-field>
+        <mat-select placeholder="Select Reason" [formControl]="f.activityReasonId"
+            (ngModelChange)="onReasonSelection()">
+          <mat-option *ngFor="let x of activityReasons" [value]="x.id">{{x.reason}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="f.activityReasonId.hasError('required') && f.activityReasonId.touched">
+          Activity reason is required
+      </mat-error>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap">
+    <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-form-field>
+        <textarea matInput placeholder="Description" [formControl]="f.remark"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <ng-container *ngIf="showDate == true">
+
+    <div fxLayout="row wrap" *ngIf="salesusers.length > 0">
+      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-form-field>
+          <mat-select placeholder="Assign To" [formControl]="f.salesUserId"
+              [required]="required">
+            <mat-option *ngFor="let x of salesusers" [value]="x.id">{{x.fullName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" [formControl]="f.scheduleDate" [min]="minDate" placeholder="Schedule Date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33" fxFlex.gt-xs="33" fxFlex="100">
+        <div class="ngx-timepicker-field">
+          <ngx-timepicker-field [formControl]="f.scheduleTime" [defaultTime]="'10:00 am'" [controlOnly]="true"></ngx-timepicker-field>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-form-field>
+          <mat-select placeholder="Select Reminder" [formControl]="f.reminder">
+            <mat-option value="15 mins">15 mins</mat-option>
+            <mat-option value="30 mins">30 mins</mat-option>
+            <mat-option value="45 mins">45 mins</mat-option>
+            <mat-option value="1 hr">1 hr</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!activityForm.valid || clicked">Save</button>
+</div>
+
+</form>

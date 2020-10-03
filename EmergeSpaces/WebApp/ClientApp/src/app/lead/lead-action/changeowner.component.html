@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Change Owner</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-form-field>
+          <mat-select placeholder="Change To" [(ngModel)]="changeTo">
+            <mat-option *ngFor="let x of leadowners" [value]="x.id">{{x.fullName}}</mat-option>
+          </mat-select>
+        </mat-form-field>        
+      </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="closeModal()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" (click)="onSave()">Save</button>
+</div>

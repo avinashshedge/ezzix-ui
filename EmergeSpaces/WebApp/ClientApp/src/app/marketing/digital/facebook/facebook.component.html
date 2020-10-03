@@ -1,0 +1,151 @@
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="row wrap" fxLayoutAlign="end">
+            <div  fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+            <mat-form-field *ngIf="isLoggedIn">
+                <mat-select placeholder="Select page" [(ngModel)]="selectedPage" (ngModelChange)="onPageSelect(selectedPage)">
+                  <mat-option *ngFor="let x of pageAccountDetails" [value]="x">{{x.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div  fxFlex.gt-sm="5" fxFlex.gt-xs="5" fxFlex="100">
+                <button mat-raised-button *ngIf="!isLoggedIn" color="primary" class="m-r-10" (click)="submitLogin()">Login</button>
+                <button mat-raised-button *ngIf="isLoggedIn" color="primary" class="m-r-10" (click)="fbLogout()">Logout</button>
+      
+            </div>
+        </div>
+        <div fxFill fxLayout="column" fxLayoutAlign="space-between" id="dvPosts">
+            <div fxLayout="row wrap" style="margin-top:10px;">
+                <ng-container *ngFor="let post of data">
+                    <mat-card>
+                        <div *ngIf="post.picture">
+                            <img style="padding: 10px;" mat-card-image width="160" height="160" src="{{post.picture}}">
+                        </div>
+                        <div *ngIf="!post.picture">
+                            <img src="./../../../../assets/no_preview.png" alt="No Picture Found" mat-card-image height="160" width="160">
+                        </div>                        
+                        <mat-card-actions style="padding:5px;text-align: center;">
+                            <a class="m-r-10" (click)="onPostClick(post)" style="cursor: pointer;">
+                                <mat-icon>message</mat-icon> 
+                                <span>
+                                ({{post.comments.summary.total_count }})</span>
+                            </a>
+                            <a class="m-r-10">
+                                <mat-icon>thumb_up</mat-icon>
+                            <span>
+                                ({{post.likes.summary.total_count }})
+                            </span>
+                            </a>
+                            <a class="m-r-10">
+                                <mat-icon>share</mat-icon>
+                            <span>({{ (post.shares != null )? post.shares.summary.total_count:'0' }})
+                            </span>
+                            </a>
+                        </mat-card-actions>
+                    </mat-card>
+                </ng-container>
+            </div>
+            <mat-paginator [length]="posts.length"
+                    [pageSize]="size"
+                    [pageIndex]="page"
+                    [pageSizeOptions]="[10]"
+                    (page)="getData($event)">
+            </mat-paginator>
+        </div>
+    </mat-card-content>
+</mat-card>
+<style>
+      #dvPosts .mat-card-image:first-child{
+        margin-top: 0px !important;
+    }
+    .mat-icon{
+        vertical-align: middle;
+    }
+    #dvPosts .mat-card{
+        border: 1px solid #c8c8c8;
+        margin: 10px;
+        width: 280px;
+        height: 200px;
+    }
+    #dvPosts .mat-card .mat-card-content {
+        font-size: 0.8rem;
+        line-height: 15px;
+        padding: 5px;
+
+    }
+    img {
+        max-height: 160px;
+        max-width: 280px;
+        margin-left: 8px;
+        margin-bottom: 8px;
+    }
+</style>
+<!-- <div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Facebook
+                </div>
+                <div class="card-body">
+                    
+                    <div class="row">
+                        <div class="col-md-7 row">
+
+                        </div>
+                        <div class="form-group col-md-4 row" style="text-align:right;">       
+                            <label *ngIf="isLoggedIn" class="col-sm-6 col-form-label">Select Facebook Page </label>                     
+                            <select *ngIf="isLoggedIn" class="form-control col-sm-6" [(ngModel)]="selectedPage" name="page" 
+                                    (change)="onPageSelect(selectedPage);">   
+                                <option *ngFor="let x of pageAccountDetails" [ngValue]="x">{{x.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-1" style="text-align:right;">
+                            <button type="button" *ngIf="!isLoggedIn" class="btn btn-primary" (click)="submitLogin();">Login</button>
+                            <button class="btn btn-secondary" *ngIf="isLoggedIn" (click)="fbLogout()">Logout</button>            
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="posts != null && posts.length > 0">
+                        
+                   
+                    <p-dataView #dv [value]="posts" [paginator]="true" [rows]="10" paginatorPosition="bottom" layout="grid">
+                        <ng-template let-rowData pTemplate="gridItem">
+                            <div style="padding:.5em;" class="ui-g-12 ui-md-3">
+                                <p-panel>
+                                    <div class="ui-widget ui-widget-content ui-corner-all" style="text-align:center;border:1px solid lightgray;">
+
+                                        <div>
+                                            <div *ngIf="rowData.picture">
+                                                <img src="{{ rowData.picture }}" alt="No Picture Found" height="120" width="160">
+                                            </div>
+                                            <div *ngIf="!rowData.picture">
+                                                <img src="./../../../../assets/no_preview.png" alt="No Picture Found" height="120" width="160">
+                                            </div>
+                                            <div style="margin:10px;">
+                                                <div class="btn btn-primary" (click)="onPostClick(rowData)">
+                                                    <i> Comments {{rowData.comments.summary.total_count }} </i>
+                                                </div>
+                                                <div class="btn btn-primary">
+                                                    <i class="far fa-thumbs-up"> Like
+                                                        {{rowData.likes.summary.total_count }} </i>
+                                                </div>
+                                                <div class="btn btn-primary">
+                                                    <i> Shares {{ (rowData.shares != null )?
+                                                        rowData.shares.summary.total_count:'0' }} </i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p-panel>
+                            </div>
+                        </ng-template>
+                    </p-dataView>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

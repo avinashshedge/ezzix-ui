@@ -1,0 +1,264 @@
+
+<mat-card-content>
+
+  <form [formGroup]="leaddetailsForm" (ngSubmit)="onSubmit()">
+
+    <mat-card-actions fxLayoutAlign="end">
+      <button mat-raised-button color="primary" type="submit"
+      [disabled]="!leaddetailsForm.valid">Save</button>
+    </mat-card-actions>
+
+      <mat-card-title class="mat-card-form-title">Basic Information</mat-card-title>
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="First name" [formControl]="f.firstName" required>
+          </mat-form-field>
+          <mat-hint
+            *ngIf="f.firstName.hasError('required') && f.firstName.touched"
+            class="text-danger font-14">You must include a first name.</mat-hint>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Last name" [formControl]="f.lastName">
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Primary Mobile" maxlength="10" required [formControl]="f.primaryMobile" type="text">
+          </mat-form-field>
+          <small *ngIf="f.primaryMobile.hasError('required') && f.primaryMobile.touched" class="text-danger font-14">You must include an phone number.</small>
+          <small *ngIf="f.primaryMobile.errors?.invalidNumber && f.primaryMobile.touched" class="text-danger font-14">You must include a valid phone number.</small>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Secondary Mobile" maxlength="10" [formControl]="f.secondaryMobile" type="text">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Email Id" required [formControl]="f.emailId" type="email">
+          </mat-form-field>
+          <small *ngIf="f.emailId.hasError('required') && f.emailId.touched" class="text-danger font-14">You must include an email address.</small>
+          <small *ngIf="f.emailId.errors?.email && f.emailId.touched" class="text-danger font-14">You must include a valid email address.</small>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Alternate Email Id" [formControl]="f.alternateEmailId" type="email">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Marital Status" [formControl]="f.maritalStatus">
+              <mat-option *ngFor="let x of maritalstatuses" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <br>
+      <mat-card-title class="mat-card-form-title">Propery Information</mat-card-title>
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+          <mat-select placeholder="Select Project" [formControl]="f.selectedProject" required>
+            <mat-option *ngFor="let project of projects" [value]="project.id">{{project.projectName}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="f.selectedProject.hasError('required') && f.selectedProject.touched">
+            This field is required
+          </mat-error>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Budget" [formControl]="f.budget">
+              <mat-option *ngFor="let budget of budgetRange" [value]="budget.key">{{budget.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+          <mat-select placeholder="Project Type" [formControl]="f.purchaseType">
+            <mat-option *ngFor="let x of projectTypes" [value]="x.key">{{x.value}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Unit Type" [formControl]="f.propertyType">
+              <mat-option *ngFor="let x of propertytypes" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Unit Area in Sq.Ft" [formControl]="f.unitArea">
+              <mat-option *ngFor="let x of unitAreas" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Preferred Location" [formControl]="f.preferredLocation" type="text">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Purchase Timeframe" [formControl]="f.purchaseTimeframe">
+              <mat-option *ngFor="let x of purchaseTimeframes" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" [formControl]="f.possesionTime" placeholder="Expected Possesion Time">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <br>
+      <mat-card-title class="mat-card-form-title">Address Information</mat-card-title>
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <textarea matInput placeholder="Permenant Address" [formControl]="f.permenantAddress"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Country" [formControl]="f.permenantCountryId" (ngModelChange)="onCountryChange()">
+              <mat-option *ngFor="let x of countryList" [value]="x.id">{{x.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select State" [formControl]="f.permenantState">
+              <mat-option *ngFor="let x of stateList" [value]="x.id">{{x.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="City" [formControl]="f.permenantCity">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Pin Code" [formControl]="f.permenantZipCode">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <br>
+      <mat-card-title class="mat-card-form-title">Company Information</mat-card-title>
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Profession" [formControl]="f.occupation">
+              <mat-option *ngFor="let x of occupations" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Organization" [formControl]="f.organization">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Industry" [formControl]="f.industry">
+              <mat-option *ngFor="let x of industries" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Designation" [formControl]="f.designation">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <textarea matInput placeholder="Company address" [formControl]="f.companyAddress"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Company Website" [formControl]="f.companyWebsite">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <br>
+      <mat-card-title class="mat-card-form-title">Additional Information</mat-card-title>
+
+      <div fxLayout="row wrap" *ngIf="leaddetail.cpUserId != null">
+        <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100">
+          Channel Partner Name : <span>{{leaddetail.createdBy}}</span>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100">
+          Modified By : <span>{{leaddetail.updatedBy}}</span>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100">
+          Modified On : <span>{{leaddetail.updatedDate | date : "dd/MM/y hh:mm a"}}</span>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100">
+          Created By : <span>{{leaddetail.createdBy}}</span>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100">
+          Created On : <span>{{leaddetail.createdDate | date : "dd/MM/y hh:mm a"}}</span>
+        </div>
+      </div>
+
+
+
+    <div mat-card-actions fxLayoutAlign="end">
+      <button mat-raised-button color="primary"
+      type="submit" [disabled]="!leaddetailsForm.valid">Save</button>
+    </div>
+
+</form>
+
+</mat-card-content>

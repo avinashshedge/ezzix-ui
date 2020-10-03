@@ -1,0 +1,139 @@
+<h1 mat-dialog-title>Send Email</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+            <mat-form-field>
+               <input type="text" placeholder="Subject" matInput [(ngModel)]="subject">
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100" class="m-r-10">
+            <mat-form-field>
+                <mat-select placeholder="Select Template" [(ngModel)]="templateHtml" (ngModelChange)="onTemplateSelection()">
+                    <mat-option *ngFor="let x of templates" [value]="x.templateHtml">{{x.templateName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-form-field appearance="fill">
+                <textarea #descriptionText matInput cols="55" rows="6" [(ngModel)]="emailContent"></textarea>
+            </mat-form-field>
+        </div> -->
+        <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+            <mat-form-field>
+                <mat-select placeholder="Select Parameter" [(ngModel)]="inputParameter"
+                    (ngModelChange)="onParamaterSelection()">
+                    <mat-option *ngFor="let x of parameterList" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100"  fxFlex="100">
+            <quill-editor [sanitize]="false" #Editor [(ngModel)]="emailContent" format="html" [style]="{height: '320px'}"></quill-editor>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+    <button mat-raised-button type="button" (click)="closeModal()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" (click)="onSendEmail()">Submit</button>
+</div>
+    
+<!-- <div class="modal-body" style="margin:10px;">
+    <div>
+        <div class="form-group row col-sm-12">
+            <div class="col-sm-6 row">
+                <label class="col-sm-4 col-form-label" for="subject">Subject <sup>*</sup></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" [(ngModel)]="subject" />
+                </div>
+            </div>
+        </div>
+        <div class="row col-sm-12 md-4">
+            <div class="col-sm-6 row">
+                <label class="col-md-4">Load Template </label>
+                <div class="col-md-8">
+                    <select class="form-control" [(ngModel)]="templateHtml" (change)="onTemplateSelection()">
+                        <option *ngFor="let x of templates" [ngValue]="x.templateHtml">{{x.templateName}}</option>
+                    </select>
+                </div>
+               
+            </div>
+            <div class="col-sm-6 row">
+                <label class="col-md-4"> Add Parameter </label>
+                <div class="col-md-8">
+                    <select class="form-control" [(ngModel)]="inputParameter" (change)="onParamaterSelection()">
+                        <option *ngFor="let x of parameterList" [ngValue]="x.key">{{x.value}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row col-sm-12 mt-4">
+            <div class="col-sm-12">
+                <p-editor #Editor [(ngModel)]="emailContent" [style]="{'height':'320px'}">
+                    <p-header>
+                        <span class="ql-formats">
+                          <select class="ql-size">
+                            <option value="small">Small</option>
+                            <option selected></option>
+                            <option value="large">Large</option>
+                            <option value="huge">Huge</option>
+                          </select>
+
+                          <select class="ql-font">
+                            <option selected>Sans Serif</option>
+                            <option value="serif">Serif</option>
+                            <option value="monospace">Monospace</option>
+                          </select>
+
+                        </span>
+                        <span class="ql-formats">
+                          <button class="ql-bold" aria-label="Bold"></button>
+                          <button class="ql-italic" aria-label="Italic"></button>
+                          <button class="ql-underline" aria-label="Underline"></button>
+                          <button class="ql-strike" aria-label="Strike"></button>
+                        </span>
+                        <span class="ql-formats">
+                            <select class="ql-color"></select>
+                            <select class="ql-background"></select>
+                        </span>
+                        <span class="ql-formats">
+                            <button class="ql-list" value="ordered"></button>
+                            <button class="ql-list" value="bullet"></button>
+                          <select title="Text Alignment" class="ql-align" >
+                            <option selected>Gauche</option>
+                            <option value="center" label="Center"></option>
+                            <option value="right" label="Right"></option>
+                            <option value="justify" label="Justify"></option>
+                          </select>            
+                        </span> 
+                        <span class="ql-formats">
+                          <button aria-label="Link" class="ql-link"></button>
+                          <button aria-label="Image" class="ql-image"></button>
+                          <button class="ql-code-block" aria-label="Insert Code Block"></button>
+                        </span>
+                        <span class="ql-formats">
+                            <select class="ql-attribute">
+<option>value 1</option>
+<option>value 2</option>
+<option>value 3</option>
+
+                            </select>
+                          </span>
+                      </p-header> 
+                </p-editor>
+            </div>
+                
+        </div>
+    </div>
+</div>
+    
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="onSendEmail()">Send Email</button>
+</div>
+ -->

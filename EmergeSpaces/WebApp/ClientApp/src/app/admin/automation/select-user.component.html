@@ -1,0 +1,41 @@
+<!-- <div class="row">
+    <div class="col-md-12"> 
+        <p-pickList  [responsive]="true" [source]="userList" [target]="selectedUsers" filterBy="firstName"
+        sourceHeader="Available Users" targetHeader="Selected Users">
+            <ng-template let-user pTemplate="item">
+                <div class="ui-helper-clearfix">
+                   {{ user.firstName +' '+ user.lastName }}
+                </div>
+            </ng-template>
+        </p-pickList>
+        
+    </div>
+</div>
+<div style="border:1px solid lightgray" class="mt-2"></div>
+<div class="row mt-2">
+    <div class="col-md-12" style="text-align: end;">
+        <input type="button" class="btn btn-primary" value="Save" (click)="onSave()">
+    </div>
+    
+</div> -->
+<h1 mat-dialog-title>Available users</h1>
+<mat-divider></mat-divider>
+
+<div mat-dialog-content>
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="80" fxFlex.gt-xs="100" fxFlex="100">
+            <mat-selection-list #sourceUser [(ngModel)]="selectedUsers">
+                <mat-list-option *ngFor="let user of userList" [value]="user">
+                {{user.fullName}}
+                </mat-list-option>
+            </mat-selection-list>
+        </div>        
+    </div>
+</div>
+
+<mat-divider></mat-divider>
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="button" (click)="onSave()">Save</button>
+</div>
+

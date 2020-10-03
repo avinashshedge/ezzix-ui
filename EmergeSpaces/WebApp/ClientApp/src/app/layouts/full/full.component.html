@@ -1,0 +1,135 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div class="main-container" [dir]="dir"
+  [ngClass]="{'minisidebar': minisidebar, 'boxed': boxed, 'danger': danger, 'blue': blue, 'green': green, 'dark': dark }">
+  <!-- ============================================================== -->
+  <!-- Topbar - style you can find in header.scss -->
+  <!-- ============================================================== -->
+  <mat-toolbar color="primary" class="topbar telative">
+    <!-- ============================================================== -->
+    <!-- Logo - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+        <!-- Logo icon -->
+        <b>
+          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+          <!-- Dark Logo icon -->
+          <!-- <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo"> -->
+          <!-- Light Logo icon -->
+          <img src="assets/images/Logo.png" alt="homepage" height="40px" class="light-logo">
+        </b>
+        <!--End Logo icon -->
+        <!-- Logo text -->
+        <!-- <span fxShow="false" fxShow.gt-xs>
+          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
+          <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage">
+        </span> -->
+      </a>
+    </div>
+    <!-- ============================================================== -->
+    <!-- sidebar toggle -->
+    <!-- ============================================================== -->
+
+    <button mat-icon-button (click)="snav.toggle() && clickEvent()" value="sidebarclosed">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <!-- ============================================================== -->
+    <!-- Search - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <a *ngIf='role == "Admin"'
+        mat-button [routerLink]="['/admin']" style="margin-top: 5px; font-size: 14px;padding:0 10px !important;">
+        Admin
+    </a>
+    <a *ngIf="role == 'Admin' || role == 'Marketing Manager' || role == 'Marketing Executive'"
+        mat-button [routerLink]="['/marketing']" style="margin-top: 5px;font-size: 14px;padding:0 10px !important;">
+        Marketing
+    </a>
+    <a *ngIf="role == 'Admin' || role == 'Pre Sale Manager' || role == 'Pre Sale Executive'"
+        mat-button [routerLink]="['/lead']" style="margin-top: 5px;font-size: 14px;padding:0 10px !important;">
+        Presale
+    </a>
+    <a *ngIf="role == 'Admin' || role == 'Sales Manager' || role == 'Sales TL' || role == 'Sales Executive'"
+        mat-button [routerLink]="['/sales']" style="margin-top: 5px;font-size: 14px;padding:0 10px !important;">
+        Sales
+    </a>
+    <a *ngIf="role == 'Admin' || role == 'Sales Manager' || role == 'Pre Sale Manager'
+              || role == 'Marketing Manager'"
+        mat-button [routerLink]="['/reports']" style="margin-top: 5px;font-size: 14px;padding:0 10px !important;">
+        Reports
+    </a>
+    <!-- <a mat-button [routerLink]="['/admin']" style="font-size: 15px;margin-top:5px;">      Sales     </a> -->
+    <form class="app-search" [ngClass]="{'show-search': showSearch}">
+      <input type="text" class="form-control" placeholder="Search &amp; enter">
+      <a class="cl-srh-btn" (click)="showSearch = !showSearch">
+        <i class="ti-close"></i>
+      </a>
+    </form>
+    <span fxFlex></span>
+    <div fxLayout="row wrap" fxLayoutAlign="end">
+      <div style="font-size: 14px !important;"
+            class="p-10 alt" >
+            <mat-form-field floatPlaceholder="never">
+              <mat-select [(ngModel)]="selectedProject"
+                          (ngModelChange)="onProjectChange()">
+                <mat-option *ngFor="let project of projects" [value]="project.id">
+                  {{project.projectName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- app header component - style you can find in header.scss / header.component.ts-->
+    <!-- ============================================================== -->
+    <app-header></app-header>
+    <!-- ============================================================== -->
+    <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
+    <!-- ============================================================== -->
+  </mat-toolbar>
+  <!-- ============================================================== -->
+  <!-- End Topbar - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+    [ngClass]="{'minisidebar': minisidebar}">
+    <!-- ============================================================== -->
+    <!-- Sidebar - style you can find in sidebar.scss -->
+    <!-- ============================================================== -->
+    <mat-sidenav #snav id="snav" class="pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0"
+      [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches" (open)="sidebarOpened = true"
+      (close)="sidebarOpened = false" [perfectScrollbar]="config">
+
+      <app-sidebar class="app-sidebar"></app-sidebar>
+
+    </mat-sidenav>
+    <!-- ============================================================== -->
+    <!-- Sidebar - style you can find in sidebar.scss -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right Sidebar - style you can find in rightsidebar.component.scss -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- Page container - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''">
+
+      <app-fab *ngIf="role == 'Admin' || role == 'Pre Sale Manager' || role == 'Pre Sale Executive'">
+
+      </app-fab>
+      <app-breadcrumb></app-breadcrumb>
+      <div class="page-content">
+
+        <router-outlet>
+          <app-spinner></app-spinner>
+        </router-outlet>
+
+      </div>
+
+    </mat-sidenav-content>
+    <!-- ============================================================== -->
+    <!-- Page container - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,86 @@
+<h1 mat-dialog-title>Add Unmanaged Lead</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="quick_lead_form" (submit)="onSubmit()">
+
+<div mat-dialog-content>
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="First name" [formControl]="quick_lead_form.controls['firstName']" required>
+          </mat-form-field>
+          <mat-hint
+            *ngIf="quick_lead_form.controls['firstName'].hasError('required') && quick_lead_form.controls['firstName'].touched"
+            class="text-danger font-14">You must include a first name.</mat-hint>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Last name" [formControl]="quick_lead_form.controls['lastName']">
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Mobile Number" maxlength="10" required [formControl]="quick_lead_form.controls['mobileNumber']" type="text">
+          </mat-form-field>
+          <small *ngIf="quick_lead_form.controls['mobileNumber'].hasError('required') && quick_lead_form.controls['mobileNumber'].touched" class="text-danger font-14">You must include an phone number.</small>
+          <small *ngIf="quick_lead_form.controls['mobileNumber'].errors?.invalidNumber && quick_lead_form.controls['mobileNumber'].touched" class="text-danger font-14">You must include a valid phone number.</small>
+          <small *ngIf="quick_lead_form.controls['mobileNumber'].errors?.isNumberExists"
+          class="text-danger font-14">
+           Mobile already exist
+         </small>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Email Id" required [formControl]="quick_lead_form.controls['emailId']" type="email">
+          </mat-form-field>
+          <small *ngIf="quick_lead_form.controls['emailId'].hasError('required') && quick_lead_form.controls['emailId'].touched" class="text-danger font-14">You must include an email address.</small>
+          <small *ngIf="quick_lead_form.controls['emailId'].errors?.email && quick_lead_form.controls['emailId'].touched" class="text-danger font-14">You must include a valid email address.</small>
+          <small *ngIf="quick_lead_form.controls['emailId'].errors?.isEmailExists"
+          class="text-danger font-14">
+           Email already exist
+         </small>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+          <mat-select placeholder="Select Project" [formControl]="quick_lead_form.controls['selectedProject']" required>
+            <mat-option *ngFor="let project of projects" [value]="project.id">{{project.projectName}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="quick_lead_form.controls['selectedProject'].hasError('required')
+                             && quick_lead_form.controls['selectedProject'].touched">
+            This field is required
+          </mat-error>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Lead Source" [formControl]="quick_lead_form.controls['leadSource']">
+              <mat-option *ngFor="let leadSource of leadSources" [value]="leadSource.id">{{leadSource.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!quick_lead_form.valid">Submit</button>
+</div>
+
+</form>

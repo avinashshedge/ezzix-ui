@@ -1,0 +1,23 @@
+<div class="ui-dialog-content">
+  <div class="row">
+    <div class="form-group col-sm-8">
+      <label for="changeto">Change Stage to<sup>*</sup></label>
+      <select class="form-control" [(ngModel)]="changeTo">
+        <option value="2">Hot</option>
+        <option value="3">Cold</option>
+        <option value="4">Warm</option>
+        <option value="7">Invalid</option>
+        <option value="8">Dead</option>
+        <option value="9">Booked</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="ui-dialog-footer">
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+    </div>
+  </div>
+</div>

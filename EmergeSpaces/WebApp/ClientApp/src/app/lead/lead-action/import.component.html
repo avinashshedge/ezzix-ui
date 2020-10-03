@@ -1,0 +1,38 @@
+<div class="modal-body"  style="margin:10px;">
+<div class="row">
+    <div class="row col-sm-4">
+        <input class="form-control" type="file" id="fileInput" #fileInput hidden                     
+            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />  
+        
+        <button class="btn btn-primary" type="button" (click)="openFileUpload($event)"> <i class="fa fa-upload"></i> Browse </button>
+
+    </div>
+    <div class="row col-sm-7">
+        <label class="col-form-label">Click <a href="assets/sample.csv" style="color:blue;cursor:pointer;">here</a> to download sample file</label>                    
+    </div>
+</div>
+<div class="row mt-3">    
+    <div class="row col-sm-10">
+        <label class="col-form-label" style="color:red;">Note: supports csv file with comma separated values</label>                    
+    </div>
+</div>
+<div class="row mt-3">    
+        <div class="row col-sm-12">
+            <label class="col-form-label">Duplicate Leads:</label> 
+            <div class="col-md-8 col-form-label">
+                <div class="form-check form-check-inline mr-1">
+                    <input class="form-check-input" id="ignoreRadio" type="radio" [(ngModel)]="duplicateLeadOption" name="duplicateLeadOption" value="ignore">
+                    <label class="form-check-label" for="ignoreRadio">Ignore</label>
+                </div>
+                <div class="form-check form-check-inline mr-1">
+                    <input class="form-check-input" id="overrideRadio" type="radio" [(ngModel)]="duplicateLeadOption" name="duplicateLeadOption" value="override">
+                    <label class="form-check-label" for="overrideRadio">Override</label>
+                </div>                           
+            </div>                
+        </div>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+<button type="button" class="btn btn-primary" (click)="onImport()">Import</button>
+</div>

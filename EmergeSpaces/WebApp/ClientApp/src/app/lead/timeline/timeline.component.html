@@ -1,0 +1,173 @@
+<div fxLayout="row wrap" *ngIf="lead != null">
+    <!-- column -->
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex.gt-xs="100">
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-xs="100">
+                <mat-card>
+                <mat-card-content>
+                    <mat-card-title class="lead-card-title">
+                        <div style="width: 85%;float: left;margin-top: 10px;">{{lead.fullName}}</div>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="lead_action">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #lead_action="matMenu" class="mymegamenu">
+                                <button mat-menu-item (click)="onSendEmail()">
+                                  <mat-icon>email</mat-icon> Send Email
+                                </button>
+                                <button mat-menu-item (click)="onSendSMS()">
+                                  <mat-icon>message</mat-icon> Send SMS
+                                </button>
+                              </mat-menu>
+                        </div>
+                    </mat-card-title>
+                    <span class="label label-primary" style="padding: 5px 10px; font-size: 100%;" [ngStyle]="{'background-color': lead.stageColor }"> {{ lead.stageDescription }}</span>
+                    <!-- Row -->
+                    <div class="row lead-card-row">
+                        <div fxFlex.gt-sm="10" fxFlex.gt-xs="100" style="display:inline-flex;margin:auto;">
+                            <mat-icon>email</mat-icon>
+                        </div>
+                        <div fxFlex.gt-sm="90" fxFlex.gt-xs="100" style="margin-left: 10px;">
+                            <div class="lead-card-row-subtitle">
+                                Email
+                            </div>
+                            <div style="font-weight: 500;">
+                                {{lead.emailId}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row lead-card-row">
+                        <div fxFlex.gt-sm="10" fxFlex.gt-xs="100" style="display:inline-flex;margin:auto;">
+                            <mat-icon>phone</mat-icon>
+                        </div>
+                        <div fxFlex.gt-sm="90" fxFlex.gt-xs="100" style="margin-left: 10px;">
+                            <div class="lead-card-row-subtitle">
+                                Mobile No
+                            </div>
+                            <div style="font-weight: 500;">
+                                {{lead.primaryMobile}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row lead-card-row">
+                        <div fxFlex.gt-sm="10" fxFlex.gt-xs="100" style="display:inline-flex;margin:auto;">
+                            <mat-icon>location_on</mat-icon>
+                        </div>
+                        <div fxFlex.gt-sm="90" fxFlex.gt-xs="100" style="margin-left: 10px;">
+                            <div class="lead-card-row-subtitle">
+                                Address
+                            </div>
+                            <div style="font-weight: 500;">
+                                {{ lead.permenantCity + "," + lead.permenantStateId }}
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-xs="100">
+                <mat-card>
+                <mat-card-content>
+                    <mat-card-title>Property Details</mat-card-title>
+                    <div class="row">
+                        <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="lead-property-row">
+                            <div class="lead-card-row-subtitle">
+                                Owner
+                            </div>
+                            <div style="font-weight: 500;">
+                                {{ lead.leadOwnerName }}
+                                </div>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="lead-property-row">
+                            <div class="lead-card-row-subtitle">
+                                Project
+                                </div>
+                                <div style="font-weight: 500;">
+                                    {{ lead.projectNames }}
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="lead-property-row">
+                            <div class="lead-card-row-subtitle">
+                                Source
+                            </div>
+                            <div style="font-weight: 500;">
+                                {{ lead.sourceDescription }}
+                                </div>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="lead-property-row">
+                            <div class="lead-card-row-subtitle">
+                                Subsource
+                                </div>
+                                <div style="font-weight: 500;">
+                                    {{ lead.leadSubsourceDescription }}
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="lead-property-row">
+                            <div class="lead-card-row-subtitle">
+                                Budget Range
+                            </div>
+                            <div style="font-weight: 500;">
+                                {{ lead.budgetDescription }}
+                                </div>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="lead-property-row">
+                            <div class="lead-card-row-subtitle">
+                                Area
+                                </div>
+                                <div style="font-weight: 500;">
+                                    {{ lead.unitArea }}
+                                </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row" *ngIf="lead.cpUserId != null">
+                      <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" class="lead-property-row">
+                          <div class="lead-card-row-subtitle">
+                              Channel Partner Name
+                          </div>
+                          <div style="font-weight: 500;">
+                              {{ lead.createdBy }}
+                              </div>
+                      </div>
+                  </div>
+
+                </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <!-- column -->
+    <!-- column -->
+    <div fxFlex.gt-sm="75" fxFlex.gt-xs="75" fxFlex.gt-xs="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-tab-group>
+                    <mat-tab label="Feeds">
+                        <activity_details></activity_details>
+                    </mat-tab>
+                    <mat-tab label="Lead Details">
+                        <lead_details></lead_details>
+                    </mat-tab>
+                    <mat-tab label="Task">
+                        <task_details></task_details>
+                    </mat-tab>
+                    <mat-tab label="Notes">
+                        <notes_details></notes_details>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>

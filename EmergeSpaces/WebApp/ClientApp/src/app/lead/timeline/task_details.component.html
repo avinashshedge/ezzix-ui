@@ -1,0 +1,90 @@
+  <mat-card-actions fxLayoutAlign="end">
+    <button mat-raised-button color="primary" fxLayoutAlign="end" (click)="showTaskModal()">
+      Add Task
+    </button>
+  </mat-card-actions>
+
+  <div class="taskboard page-height">
+    <div class="taskboard-wrapper">
+      <div class="taskboard-list inprogress">
+        <div class="taskboard-header text-uppercase">
+          <strong>ToDo</strong>
+        </div>
+
+        <div cdkDropList #todoList="cdkDropList"
+        [cdkDropListData]="inprogresstasks"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="taskboard-cards"
+        (cdkDropListDropped)="drop($event)">
+
+          <div class="taskboard-task inprogress" [attr.data-id]="task.id" *ngFor="let task of inprogresstasks" cdkDrag>
+
+            <div class="taskboard-task-title">{{task.taskType}}</div>
+            <span class="task-decription">{{task.subject}}</span>
+            <span>Scheduled on {{ task.scheduleFrom | date :"dd/MM/y hh:mm a" }} </span>
+            <div class="m-t-5">
+              <span class="text-muted"> {{task.createdBy}}</span>
+              <span class="text-muted pull-right">{{task.createdDate | date :"dd/MM/y hh:mm a"}}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="taskboard-wrapper">
+      <div class="taskboard-list completed">
+        <div class="taskboard-header text-uppercase">
+          <strong>Completed</strong>
+        </div>
+
+        <div id="dvComplete" class="taskboard-cards"
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="completetasks"
+        [cdkDropListConnectedTo]="[todoList,dueList]"
+        class="taskboard-cards"
+        (cdkDropListDropped)="drop($event)">
+
+          <div class="taskboard-task completed" [attr.data-id]="task.id" *ngFor="let task of completetasks" >
+
+            <div class="taskboard-task-title">{{task.taskType}}</div>
+            <span class="task-decription">{{task.subject}}</span>
+
+            <span>Scheduled on {{ task.scheduleFrom | date :"dd/MM/y hh:mm a" }} </span>
+            <div class="m-t-5">
+              <span class="text-muted"> {{task.updatedBy}}</span>
+              <span class="text-muted pull-right">{{task.updatedDate | date :"dd/MM/y hh:mm a"}}</span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="taskboard-wrapper">
+      <div class="taskboard-list onhold">
+        <div class="taskboard-header text-uppercase">
+          <strong>Overdue</strong>
+        </div>
+
+        <div cdkDropList #dueList="cdkDropList"
+        [cdkDropListData]="duetasks"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="taskboard-cards"
+        (cdkDropListDropped)="drop($event)">
+
+          <div class="taskboard-task" [attr.data-id]="task.id" *ngFor="let task of duetasks" cdkDrag>
+
+            <div class="taskboard-task-title">{{task.taskType}}</div>
+            <span class="task-decription">{{task.subject}}</span>
+            <span>Scheduled on {{ task.scheduleFrom | date :"dd/MM/y hh:mm a" }}</span>
+            <div class="m-t-5">
+              <span class="text-muted"> {{task.createdBy}}</span>
+              <span class="text-muted pull-right">{{task.createdDate | date :"dd/MM/y hh:mm a"}}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

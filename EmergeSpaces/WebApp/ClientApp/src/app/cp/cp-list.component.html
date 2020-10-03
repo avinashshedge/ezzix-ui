@@ -1,0 +1,79 @@
+<mat-card>
+  <mat-card-content>
+      <mat-card-actions fxLayoutAlign="end" >
+        <div class="p-10" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+          <button mat-raised-button class="m-r-4" color="primary" fxLayoutAlign="end"
+          (click)="onCreate()"> Add Lead</button>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="5" fxFlex.gt-xs="5" fxFlex="100">
+          <button [matMenuTriggerFor]="lead_action" mat-mini-fab color="primary" aria-label="Lead Actions">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #lead_action="matMenu" class="mymegamenu">
+            <button mat-menu-item (click)="onAssign()">
+              <mat-icon>people</mat-icon> Assign
+            </button>
+            <button mat-menu-item (click)="onDelete()">
+              <mat-icon>remove</mat-icon> Delete
+            </button>
+          </mat-menu>
+        </div>
+
+      </mat-card-actions>
+
+      <div class="responsive-table">
+        <mat-table #table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="fullName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="emailId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Email Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.emailId}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="primaryNumber" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header > Mobile No </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.primaryNumber}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="createdBy">
+              <mat-header-cell *matHeaderCellDef> Created By </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.createdBy }} </mat-cell>
+            </ng-container>
+
+          <ng-container matColumnDef="createdDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.createdDate | date : "dd/MM/y hh:mm a" }} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+      </div>
+
+  </mat-card-content>
+</mat-card>

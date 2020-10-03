@@ -1,0 +1,190 @@
+<mat-horizontal-stepper linear #stepper style="margin: 15px;">
+    <mat-step [stepControl]="templateFormGroup">
+      <form [formGroup]="templateFormGroup">
+        <ng-template matStepLabel>Select Template</ng-template>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100" style="padding-top:25px ;">
+                <label style="font-weight: 500;font-size: 14px;">Campaign Name </label>
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                <mat-form-field>
+                    <input matInput placeholder="Campaign Name" formControlName="campaignName" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100" style="padding-top:25px ;">
+                <label style="font-weight: 500;font-size: 14px;">Email Category </label>
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                <mat-form-field>
+                    <mat-select placeholder="Email Category" formControlName="category">
+                        <mat-option value="Newsletter">Newsletter</mat-option>
+                        <mat-option value="Promotional">Promotional</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100" style="padding-top:25px ;">
+                <label style="font-weight: 500;font-size: 14px;">Select Template </label>
+            </div>
+            <div fxFlex.gt-sm="85" fxFlex.gt-xs="85" fxFlex="100">
+                <div fxFill fxLayout="column" fxLayoutAlign="space-between" id="dvTemplate">
+                    <div fxLayout="row wrap" style="margin-top:10px;">
+                        <ng-container *ngFor="let template of data">
+                            <mat-card [ngClass]="{ 'selected-email-template' : selectedemailId == template.id }">
+                                <mat-card-title class="matcard-template-title">{{template.templateName}}</mat-card-title>
+                                <img style="padding: 10px;" mat-card-image height="160px" src="https://ezzixstorage.blob.core.windows.net/email-images/{{template.templateUrl}}">
+                                <mat-card-actions fxLayoutAlign="center" style="padding-bottom:10px;">
+                                    <button mat-stroked-button type="button"
+                                    (click)="onDesktopPreview(template.templateHtml)">Preview</button>
+                                    <button mat-stroked-button type="button"
+                                    (click)="selectTemplate(template)">Select</button>
+                                </mat-card-actions>
+                            </mat-card>
+                        </ng-container>
+                    </div>
+                    <mat-paginator [length]="templates.length"
+                            [pageSize]="size"
+                            [pageIndex]="page"
+                            [pageSizeOptions]="[10]"
+                            (page)="getData($event)">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+        <div style="float: right;">
+            <button mat-raised-button color="primary" class="m-r-10" fxlayoutalign="end"
+             (click)="onNextStep(stepper)">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="composeFormGroup" >
+      <form [formGroup]="composeFormGroup">
+        <ng-template matStepLabel>Compose Message</ng-template>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100" style="padding-top:25px ;">
+                <label style="font-weight: 500;font-size: 14px;">From </label>
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                <mat-form-field>
+                    <mat-select placeholder="Select user" formControlName="from" required>
+                        <mat-option *ngFor="let x of users" [value]="x.emailId">{{x.fullName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100" style="padding-top:25px ;">
+                <label style="font-weight: 500;font-size: 14px;">To </label>
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                <mat-form-field>
+                    <mat-select placeholder="Select leads" required formControlName="leadListId" (ngModelChange)="onLeadListChange()">
+                        <mat-option *ngFor="let x of leads" [value]="x.id">{{x.listName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100" style="padding-top:25px ;">
+                <label style="font-weight: 500;font-size: 14px;">Subject </label>
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                <mat-form-field>
+                    <input matInput placeholder="Subject" formControlName="subject" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" style="padding-top:25px ;">
+                <div id="editor" #editor style="height:500px;margin-bottom: 20px;"></div>
+            </div>
+        </div>
+        <div style="float: right;">
+
+          <button fxlayoutalign="end" class="m-r-10" color="primary" mat-raised-button matStepperPrevious>Back</button>
+          <button fxlayoutalign="end" class="m-r-10" color="primary" mat-raised-button (click)="onSaveTemplate()">Save Template</button>
+          <button fxlayoutalign="end" class="m-r-10" color="primary" mat-raised-button (click)="onDraft()">Save as Draft</button>
+          <button fxlayoutalign="end" class="m-r-10" color="primary"
+              mat-raised-button (click)="onComposeNextStep(stepper)">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel> Preview & Send</ng-template>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100" style="padding-top:25px ;">
+            <label style="font-weight: 500;font-size: 14px;">Schedule</label>
+        </div>
+        <div fxFlex.gt-sm="15" fxFlex.gt-xs="10" fxFlex="100">
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="scheduledOn" [minDate]="minDate" placeholder="Schedule date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+        <div class="p-10" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+            <div class="ngx-timepicker-field">
+              <ngx-timepicker-field  [(ngModel)]="scheduleToTime" [defaultTime]="'10:00 am'" [controlOnly]="true"></ngx-timepicker-field>
+            </div>
+          </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="15" fxFlex.gt-xs="10" fxFlex="100" style="padding-top:25px ;">
+            <label style="font-weight: 500;font-size: 14px;">Review mail</label>
+        </div>
+        <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+            <div fxFlex.gt-sm="65%" fxFlex.gt-xs="65%" fxFlex="100">
+                <textarea [(ngModel)]="testEmailId" rows="3" cols="30"></textarea>
+            </div>
+            <div fxFlex.gt-sm="25%" fxFlex.gt-xs="25%" fxFlex="100">
+                <button mat-raised-button color="primary" (click)="sendTestMail()">Send Test Mail</button>
+            </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div [innerHtml]="templateHtml | safeHtml"></div>
+      </div>
+      <div style="float: right;">
+        <button mat-raised-button color="primary" class="m-r-10" (click)="onSend()" [disabled]="!enableSendButton">Send</button>
+      </div>
+    </mat-step>
+</mat-horizontal-stepper>
+
+
+<style>
+    #dvTemplate .mat-card-image:first-child{
+        margin-top: 0px !important;
+    }
+    #dvTemplate .mat-card{
+        border: 1px solid #c8c8c8;
+        margin: 10px;
+    }
+    #dvTemplate .mat-card .mat-card-content {
+        font-size: 0.8rem;
+        line-height: 15px;
+        padding: 5px;
+
+    }
+
+    .matcard-template-title{
+        padding: 10px;
+                        margin: auto;
+                        text-align: center;
+                        background: #f4f4f4;
+                        border-bottom: 1px solid #c8c8c8;
+                        font-weight: 400;
+    }
+    img {
+        max-height: 160px;
+        max-width: 200px;
+        margin-left: 8px;
+        margin-bottom: 8px;
+    }
+    .selected-email-template {
+        border: 2px solid red!important;
+    }
+</style>

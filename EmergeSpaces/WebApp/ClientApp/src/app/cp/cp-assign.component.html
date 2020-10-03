@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Assign Lead To</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="80" fxFlex.gt-xs="80" fxFlex="100">
+        <mat-form-field>
+          <mat-select placeholder="Assign To" [(ngModel)]="selectedUserId">
+            <mat-option *ngFor="let x of users" [value]="x.id">{{x.fullName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="closeModal()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" (click)="onSave()">Save</button>
+</div>

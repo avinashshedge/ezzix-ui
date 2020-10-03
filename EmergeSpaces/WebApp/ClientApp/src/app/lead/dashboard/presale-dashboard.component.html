@@ -1,0 +1,169 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+    <mat-card-header fxLayout="row">
+      <mat-card-title>Lead Statistics </mat-card-title>
+      <div fxFlex></div>
+      <div fxLayoutAlign="center center">
+        <button mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row wrap">
+      <div *ngFor="let stage of leadStageData; let i = index" fxFlex.gt-sm="14.28" fxFlex.gt-xs="14.28" fxFlex="100">
+        <mat-card>
+          <mat-card-content>
+            <div class="d-flex no-block">
+              <div>
+                <h3 class="m-0">{{ stage.y }}</h3>
+                <h4 class="text-muted m-0">{{ stage.name }}</h4>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="75" fxFlex.gt-md="60" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Lead Timeline</mat-card-title>
+        <div id="timeline-chart" *ngIf="timelinechartOptions">
+          <apx-chart [series]="timelinechartOptions.series" [chart]="timelinechartOptions.chart"
+            [xaxis]="timelinechartOptions.xaxis" [stroke]="timelinechartOptions.stroke"
+            [tooltip]="timelinechartOptions.tooltip" [dataLabels]="timelinechartOptions.dataLabels"
+            [legend]="timelinechartOptions.legend" [colors]="timelinechartOptions.colors"
+            [markers]="timelinechartOptions.markers">
+          </apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex.gt-lg="75" fxFlex.gt-md="40" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Task Summary</mat-card-title>
+        <div id="tasksummaryChart" *ngIf="taskSummaryChartOptions">
+          <apx-chart [series]="taskSummaryChartOptions.series" [chart]="taskSummaryChartOptions.chart"
+            [dataLabels]="taskSummaryChartOptions.dataLabels" [plotOptions]="taskSummaryChartOptions.plotOptions"
+            [yaxis]="taskSummaryChartOptions.yaxis" [legend]="taskSummaryChartOptions.legend"
+            [fill]="taskSummaryChartOptions.fill" [stroke]="taskSummaryChartOptions.stroke"
+            [tooltip]="taskSummaryChartOptions.tooltip" [xaxis]="taskSummaryChartOptions.xaxis"
+            [grid]="taskSummaryChartOptions.grid">
+          </apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Leads by Source</mat-card-title>
+        <div id="sourceChart" *ngIf="sourceChartOptions">
+          <apx-chart [series]="sourceChartOptions.series" [chart]="sourceChartOptions.chart"
+            [dataLabels]="sourceChartOptions.dataLabels" [plotOptions]="sourceChartOptions.plotOptions"
+            [yaxis]="sourceChartOptions.yaxis" [legend]="sourceChartOptions.legend" [fill]="sourceChartOptions.fill"
+            [stroke]="sourceChartOptions.stroke" [tooltip]="sourceChartOptions.tooltip"
+            [xaxis]="sourceChartOptions.xaxis" [grid]="sourceChartOptions.grid">
+          </apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="role == 'Pre Sale Manager'">
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Top agents by open Leads</mat-card-title>
+        <div>
+          <mat-table [dataSource]="openLeadsDataSource" matSort>
+            <ng-container matColumnDef="key">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Owner </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.key}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Count </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="openLeadDisplayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: openLeadDisplayedColumns;"></mat-row>
+
+          </mat-table>
+          <mat-paginator #openLeadsPaginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons>
+          </mat-paginator>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Top Performer</mat-card-title>
+        <div>
+          <mat-table [dataSource]="topPerformerDataSource" matSort>
+            <ng-container matColumnDef="key">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Owner </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.key}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Conversion (%) </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="topPerformerDisplayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: topPerformerDisplayedColumns;"></mat-row>
+
+          </mat-table>
+          <mat-paginator #topPerformerPaginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons>
+          </mat-paginator>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Top Open Leads By Age(days)</mat-card-title>
+        <div>
+          <mat-table [dataSource]="leadAgeDataSource" matSort>
+            <ng-container matColumnDef="key">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Owner </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.key}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="value">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Age (days) </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="leadAgeDisplayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: leadAgeDisplayedColumns;"></mat-row>
+
+          </mat-table>
+          <mat-paginator #leadAgePaginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

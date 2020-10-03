@@ -1,0 +1,147 @@
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div class="p-10 m-t-15" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+                Name
+            </div>
+            <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+              <mat-form-field>
+                <input matInput placeholder="Name" [(ngModel)]="name" required>
+              </mat-form-field> 
+            </div>
+        </div>
+
+        <div fxLayout="row wrap">
+            <div class="p-10 m-t-15" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+                Project
+            </div>
+            <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                <mat-form-field>
+                    <mat-select placeholder="Select Project" [(ngModel)]="projectId" required>
+                    <mat-option *ngFor="let project of projectList" [value]="project.id">{{project.projectName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap">
+            <div class="p-10 m-t-15" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+                Trigger
+            </div>            
+            <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                <mat-button-toggle-group [(ngModel)]="trigger">
+                    <mat-button-toggle value="on-lead">On Lead</mat-button-toggle>
+                    <mat-button-toggle value="specific-date">On Specific date</mat-button-toggle>
+                    <mat-button-toggle value="distribute-leads">Distribute Leads</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap">
+            <div class="p-10 m-t-15" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+            </div>
+            <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+                <a class="m-r-10" style="color:blue !important;cursor:pointer; text-decoration:underline;" (click)="onRuleModal()">+ Add Rule</a>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap">
+            <div class="p-10 m-t-15" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+            </div>
+            <div class="p-10" fxFlex.gt-sm="90" fxFlex.gt-xs="90" fxFlex="100">
+                <mat-table #table [dataSource]="dataSource" class="mat-elevation-z2">
+
+                    <ng-container matColumnDef="criteria">
+                      <mat-header-cell *matHeaderCellDef> Criteria </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.criteria}} </mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="value">
+                      <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="reason">
+                        <mat-header-cell *matHeaderCellDef> Reason </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.reason}} </mat-cell>
+                    </ng-container>
+
+                      
+                    <ng-container matColumnDef="users">
+                      <mat-header-cell *matHeaderCellDef> Users </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.users}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="smsTemplateName">
+                        <mat-header-cell *matHeaderCellDef> SMS Template </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.smsTemplateName}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="emailTemplateName">
+                      <mat-header-cell *matHeaderCellDef> Email Template </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.emailTemplateName}} </mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                        <mat-cell *matCellDef="let element; let j = index;">  
+                            <mat-icon-button (click)="onRemove(j)">
+                                <mat-icon>delete</mat-icon>
+                            </mat-icon-button> 
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+        <mat-card-actions fxLayoutAlign="end">
+            <button mat-raised-button  type="button" (click)="onCancel()">Cancel</button>
+            <button mat-raised-button color="primary" type="button" (click)="onSave()">Save</button>
+        </mat-card-actions>
+    </mat-card-content>
+</mat-card>
+
+<!-- 
+<div fxLayout="row wrap" *ngIf="trigger == 'specific-date'">
+    <div class="p-10 m-t-15" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+        Event
+    </div>
+    <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <mat-form-field>
+            <mat-select placeholder="Select Event" [(ngModel)]="eventType" required>
+                <mat-option>Date of Birth</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="trigger == 'specific-date'">
+    <div class="p-10 m-t-15" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+        Schedule Date
+    </div>
+    <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <mat-radio-group [(ngModel)]="scheduledDate">
+            <mat-radio-button value="same-day">On the day of event</mat-radio-button> <br>
+           
+            <mat-radio-button value="day-before">    
+                <mat-form-field fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+                    <input matInput type="number"  [(ngModel)]="numberOfDays" min="1" max="7">     
+                </mat-form-field>            
+                Day(s) before the event</mat-radio-button>
+          </mat-radio-group>
+    </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="trigger == 'specific-date'">
+    <div class="p-10 m-t-15" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+        Schedule Time
+    </div>
+    <div class="p-10" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+        <mat-form-field>
+            <input type="time" matInput [(ngModel)]="scheduledTime"  min="06:00" max="18:00" >
+        </mat-form-field>                
+    </div>
+</div> -->
+

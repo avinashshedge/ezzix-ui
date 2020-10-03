@@ -1,0 +1,77 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+  <div mat-dialog-content>
+
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-form-field>
+          <mat-select placeholder="Task Type" [formControl]="f.tasktype">
+            <mat-option value="follow-up">Follow-Up</mat-option>
+            <mat-option value="meeting">Meeting</mat-option>
+            <mat-option value="phone call">Phone Call</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="f.tasktype.hasError('required') && f.tasktype.touched">
+            Task type is required
+        </mat-error>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-form-field>
+         <input type="text" placeholder="Subject" required matInput [formControl]="f.subject">
+        </mat-form-field>
+        <mat-error *ngIf="f.subject.hasError('required') && f.subject.touched">
+          Subject is required
+        </mat-error>
+      </div>
+    </div>
+
+
+  <div fxLayout="row wrap">
+    <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-form-field>
+        <textarea matInput placeholder="description" [formControl]="f.description"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="33" fxFlex.gt-xs="33" fxFlex="100">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" required [formControl]="f.scheduleFrom"
+          [min]="minDate" placeholder="Schedule From">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="p-10" fxFlex.gt-sm="33" fxFlex.gt-xs="33" fxFlex="100">
+          <div class="ngx-timepicker-field">
+            <ngx-timepicker-field [formControl]="f.scheduleFromTime" [defaultTime]="'10:10 am'" [controlOnly]="true"></ngx-timepicker-field>
+          </div>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-form-field>
+          <mat-select placeholder="Select Reminder" [formControl]="f.reminder">
+            <mat-option value="15 mins">15 mins</mat-option>
+            <mat-option value="30 mins">30 mins</mat-option>
+            <mat-option value="45 mins">45 mins</mat-option>
+            <mat-option value="1 hr">1 hr</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+
+  <mat-divider></mat-divider>
+  <div mat-dialog-actions fxLayoutAlign="end">
+    <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!taskForm.valid">Save</button>
+  </div>
+
+</form>

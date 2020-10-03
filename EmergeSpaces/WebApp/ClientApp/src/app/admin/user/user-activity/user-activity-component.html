@@ -1,0 +1,182 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="userForm" (submit)="onSubmit()">
+      <mat-card-actions fxLayoutAlign="end">
+          <button mat-raised-button color="primary" type="submit" 
+          [disabled]="!userForm.valid">Submit</button>
+          <button mat-raised-button  type="button" (click)="onCancel()">Cancel</button>
+      </mat-card-actions>
+
+      <mat-card-title>Basic Information</mat-card-title>
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="First name" [formControl]="userForm.controls['firstName']" required>
+          </mat-form-field>
+          <mat-hint *ngIf="userForm.controls['firstName'].hasError('required') && userForm.controls['firstName'].touched" class="text-danger font-14">You must include a first name.</mat-hint>
+          <mat-hint *ngIf="userForm.controls['firstName'].hasError('maxlength') && userForm.controls['firstName'].touched" class="text-danger font-14">Your first name cannot exceed 10 characters.</mat-hint>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Middle name" [formControl]="userForm.controls['middleName']">
+          </mat-form-field>
+         </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Last name" [formControl]="userForm.controls['lastName']">
+          </mat-form-field>
+         </div>
+      </div>
+      
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Mobile Number" maxlength="10" required [formControl]="userForm.controls['phoneNumber']" type="text">
+          </mat-form-field>
+          <small *ngIf="userForm.controls['phoneNumber'].hasError('required') && userForm.controls['phoneNumber'].touched" class="text-danger font-14">You must include an phone number.</small>
+          <small *ngIf="userForm.controls['phoneNumber'].errors?.invalidNumber && userForm.controls['phoneNumber'].touched" class="text-danger font-14">You must include a valid phone number.</small>
+        </div>  
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Email Id" required [formControl]="userForm.controls['emailId']" type="email">
+          </mat-form-field>
+          <small *ngIf="userForm.controls['emailId'].hasError('required') && userForm.controls['emailId'].touched" class="text-danger font-14">You must include an email address.</small>
+          <small *ngIf="userForm.controls['emailId'].errors?.email && userForm.controls['emailId'].touched" class="text-danger font-14">You must include a valid email address.</small>
+        </div>  
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" [formControl]="userForm.controls['dob']" placeholder="Date of birth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+         </div>        
+      </div>
+      
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <label class="m-r-20">Gender :</label>
+          <mat-radio-group [formControl]="userForm.controls['gender']">
+            <mat-radio-button value="male" class="m-r-10">Male</mat-radio-button>
+            <mat-radio-button value="female">Female</mat-radio-button>
+          </mat-radio-group>
+          <small *ngIf="!userForm.controls['gender'].valid && userForm.controls['gender'].touched" class="mat-text-warn">You must select a gender.</small>
+        </div>
+      </div>
+
+      <br>
+      <mat-card-title>Employement Information</mat-card-title>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+          <mat-select placeholder="Select Project" [formControl]="userForm.controls['selectedProject']" multiple required>
+            <mat-option *ngFor="let project of projectList" [value]="project.id">{{project.projectName}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="userForm.controls['selectedProject'].hasError('required') && userForm.controls['selectedProject'].touched">
+            This field is required
+          </mat-error>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+          <mat-select placeholder="Select Role" [formControl]="userForm.controls['roleId']"
+          (ngModelChange)="onRoleChange()" required>
+            <mat-option *ngFor="let role of roleList" [value]="role.id">{{role.role_name}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="userForm.controls['roleId'].hasError('required') && userForm.controls['roleId'].touched">
+            This field is required
+          </mat-error>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+          <mat-select placeholder="Select Report To" [formControl]="userForm.controls['reportTo']" required>
+            <mat-option *ngFor="let x of reportToList" [value]="x.id">{{x.firstName + " " + x.lastName}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="userForm.controls['reportTo'].hasError('required') && userForm.controls['reportTo'].touched">
+            This field is required
+          </mat-error>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Office" [formControl]="userForm.controls['selectedOffice']">
+              <mat-option *ngFor="let office of offices" [value]="office.id">{{office.officeName}}</mat-option>
+            </mat-select>
+          </mat-form-field>         
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Corporate Position" [formControl]="userForm.controls['corporatePosition']">
+              <mat-option *ngFor="let cp of corporatePositions" [value]="cp.key">{{cp.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Employee code" [formControl]="userForm.controls['empcode']">
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Country" [formControl]="userForm.controls['countryId']" (ngModelChange)="onCountryChange()">
+              <mat-option *ngFor="let x of countryList" [value]="x.id">{{x.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>         
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select State" [formControl]="userForm.controls['stateId']">
+              <mat-option *ngFor="let x of stateList" [value]="x.id">{{x.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>         
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="City" [formControl]="userForm.controls['city']">
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <br>
+      <mat-card-title>Other Information</mat-card-title>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Agent Extention Number" [formControl]="userForm.controls['agentPhoneNumber']">
+          </mat-form-field>         
+        </div>
+      </div>
+
+      <mat-card-actions fxLayoutAlign="end">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Submit</button>        
+        <button mat-raised-button  type="button" (click)="onCancel()">Cancel</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

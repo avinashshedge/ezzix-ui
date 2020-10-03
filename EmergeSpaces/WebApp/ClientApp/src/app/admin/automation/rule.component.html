@@ -1,0 +1,83 @@
+<h1 mat-dialog-title>Add New Rule</h1>
+<mat-divider></mat-divider>
+
+<div mat-dialog-content>
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <div fxLayout="row wrap">
+                <div class="p-10" fxFlex.gt-sm="45" fxFlex.gt-xs="45" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select *ngIf="trigger == 'distribute-leads'" placeholder="Select Criteria" [(ngModel)]="criteria"
+                            (ngModelChange)="onCriteriaChange()" required>
+                            <mat-option value="Lead Source">Lead Source</mat-option>
+                        </mat-select>
+
+                        <mat-select *ngIf="trigger == 'on-lead'" placeholder="Select Criteria" [(ngModel)]="criteria"
+                            (ngModelChange)="onCriteriaChange()" required>
+                            <mat-option value="Activity Type">Activity Type</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+           
+                <div class="p-10" fxFlex.gt-sm="45" fxFlex.gt-xs="45" fxFlex="100">
+                    <mat-form-field  *ngIf="criteria == 'Lead Source'">
+                        <mat-select placeholder="Select Lead Source" [(ngModel)]="value">
+                            <mat-option *ngFor="let x of leadSourceList" [value]="x.name">{{x.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field  *ngIf="criteria == 'Activity Type'">
+                        <mat-select placeholder="Select Activity Type" [(ngModel)]="value" (ngModelChange)="onActivityTypeChange()">
+                            <mat-option *ngFor="let x of activityTypeList" [value]="x.activityName">{{x.activityName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+           
+            <div fxLayout="row wrap" *ngIf="criteria == 'Activity Type'">
+                <div class="p-10" fxFlex.gt-sm="90" fxFlex.gt-xs="90" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="Select Reason" [(ngModel)]="activityReason">
+                          <mat-option *ngFor="let x of activityReasons" [value]="x.reason">{{x.reason}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>  
+                </div>
+            </div>
+           
+            <div fxLayout="row wrap">
+                <div class="p-10" fxFlex.gt-sm="45" fxFlex.gt-xs="45" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="Select Email Template" [(ngModel)]="emailTemplate">
+                            <mat-option *ngFor="let x of emailTemplates" [value]="x">{{x.templateName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+           
+                <div class="p-10" fxFlex.gt-sm="45" fxFlex.gt-xs="45" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="Select SMS Template" [(ngModel)]="smsTemplate" >
+                            <mat-option *ngFor="let x of smsTemplates" [value]="x">{{x.templateName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" *ngIf="trigger == 'distribute-leads'">
+                <div fxFlex.gt-sm="90" fxFlex.gt-xs="90" fxFlex="100">
+                  Select Users
+                        <mat-selection-list  style="height: 200px;overflow-x:auto;" placeholder="Select User" #sourceUser [(ngModel)]="selectedUsers">
+                            <mat-list-option *ngFor="let user of userList" [value]="user">
+                            {{user.fullName}}
+                            </mat-list-option>
+                        </mat-selection-list>
+                </div>        
+            </div>
+        </div>        
+    </div>
+</div>
+
+<mat-divider></mat-divider>
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="button" (click)="onSave()">Add Rule</button>
+</div>

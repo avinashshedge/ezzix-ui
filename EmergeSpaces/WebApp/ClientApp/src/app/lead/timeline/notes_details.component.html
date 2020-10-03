@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-actions fxLayoutAlign="end">
+      <button mat-raised-button color="primary" fxLayoutAlign="end" (click)="showNotesModal()">
+        Add Notes
+      </button>
+    </mat-card-actions>
+    <div class="row wrap">
+      <div style="padding:5px;margin-bottom: 5px;border-radius: 4px; background-color:lightgoldenrodyellow"
+        *ngFor="let note of notes">
+        <p style="font-weight:bold">{{ note.description }}</p>
+        <div style="font-style:italic">Added by {{ note.createdBy }} on {{ note.createdDate | date :'medium' }}</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

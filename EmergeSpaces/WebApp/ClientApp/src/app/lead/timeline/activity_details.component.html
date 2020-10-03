@@ -1,0 +1,137 @@
+<mat-card-content>
+
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+      <form [formGroup]="formGroup">
+        <mat-form-field>
+          <mat-select placeholder="Filter By Activity Type" name="activityTypes" multiple formControlName="selectedFilter"
+            (ngModelChange)="onTypeChange()" *ngIf="filterActivityTypes.length >0">
+            <mat-option-select-all></mat-option-select-all>
+            <mat-option [value]="type.id" *ngFor="let type of filterActivityTypes">
+              {{type.activityName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100"></div>
+    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+      <mat-card-actions fxLayoutAlign="end" (click)="showAcitivyModal()">
+        <button mat-raised-button  color="primary" fxLayoutAlign="end">
+          Add Activity</button>
+      </mat-card-actions>
+    </div>
+  </div>
+  <hr>
+  <div  *ngFor="let monthwise of monthYears()">
+    <b>{{monthwise}}</b>
+  <ul class="timeline">
+      <li class="timeline-inverted" *ngFor="let activity of activities[monthwise]">
+
+          <div class="timeline-badge danger">
+              <i [ngClass]="getActivityUrl(activity)"></i>
+          </div>
+
+          <div class="timeline-panel" *ngIf="activity.activityId == 1">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">
+                <span style="color: blue;">{{ activity.activityDescription }} :</span>
+                <span style="margin-left: 5px;"> Lead captured from <b>{{ activity.remark }} </b></span>
+              </h4>
+            </div>
+            <div class="timeline-footer">
+              Added by {{ activity.addedBy }} on {{ activity.activityDate | date : "dd/MM/y hh:mm a" }}</div>
+          </div>
+
+          <div class="timeline-panel" *ngIf="activity.activityId != 1 && 9 >= activity.activityId">
+
+            <div class="timeline-heading">
+              <h4 class="timeline-title">
+                <span style="color: blue;">{{ activity.activityDescription }}:</span>
+                  <a class="timeline-tag">
+                    <span [innerHTML]="activity.activityReasonDescription"></span>
+                  </a>
+              </h4>
+            </div>
+            <div class="timeline-body">
+              <span>
+                {{ activity.remark }}
+              </span>
+
+            <div class="timeline-footer">
+              <span *ngIf="activity.scheduleDate != null" style="margin-right: 20px;">
+                Scheduled on {{ activity.scheduleDate | date : "dd/MM/y hh:mm a"}}
+              </span>
+              <span> Added by {{ activity.addedBy }}
+                on {{ activity.activityDate | date : "dd/MM/y hh:mm a" }}
+              </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="timeline-panel" *ngIf="activity.activityId == 10 || activity.activityId == 11">
+            <div class="timeline-heading">
+              <span style="color: blue;">{{ activity.activityDescription }}:</span>
+              <span style="margin-left: 5px;">{{activity.subject }} </span>
+              <div class="timeline-footer">Added by {{ activity.addedBy }} on {{ activity.activityDate | date : "dd/MM/y hh:mm a" }}</div>
+            </div>
+          </div>
+
+          <div class="timeline-panel" *ngIf="activity.activityId == 17 || activity.activityId == 18">
+            <div class="timeline-heading">
+              <span style="color: blue;">{{ activity.activityDescription }}:</span>
+              <span style="margin-left: 5px;">{{ activity.subject }}  </span>
+              <span> by {{ activity.activityFrom }} </span>
+              <div class="timeline-footer">{{ activity.activityDate | date : "dd/MM/y hh:mm a" }}</div>
+            </div>
+          </div>
+
+          <div class="timeline-panel" *ngIf="activity.activityId == 13">
+              <div class="timeline-heading">
+                  <h4 class="timeline-title">
+                    <span style="color: blue;">{{ activity.activityDescription }}:</span>
+                    <span> <b>{{ activity.taskType }} </b></span>
+                    <a style="color: #F44336 !important;font-size: 12px;font-weight: 600;background: antiquewhite; padding: 2px;margin-left: 30px;">
+                        {{ activity.subject }}
+                    </a></h4>
+              </div>
+              <div class="timeline-body">
+                  <div class="timeline-footer">
+                      <span style="margin-right: 20px;">Due on: {{ activity.taskDueDate | date : "dd/MM/y hh:mm a" }}</span>
+                      <span style="margin-right: 20px;">Completed on: {{ activity.activityDate | date : "dd/MM/y hh:mm a" }}</span>
+                      <span>Completed by: {{ activity.addedBy }} </span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="timeline-panel" *ngIf="activity.activityId == 12 ||
+                            activity.activityId == 14 || activity.activityId == 15">
+
+              <div class="timeline-heading">
+                <h4 class="timeline-title">
+                  <span style="color: blue;">{{ activity.activityDescription }}:</span>
+                  <span style="margin-left: 5px;">changed from
+                    <b>{{ activity.activityFrom}}</b>
+                    to <b>{{ activity.activityTo}}</b>
+                  </span>
+                </h4>
+              </div>
+              <div class="timeline-footer">
+                Added by {{ activity.addedBy }} on {{ activity.activityDate | date : "dd/MM/y hh:mm a" }}</div>
+          </div>
+
+          <div class="timeline-panel" *ngIf="activity.activityId == 16">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">
+                  <span style="color: #0000ff;">{{ activity.activityDescription }}:</span>
+                  <span style="margin-left: 5px;"> Lead deleted by <b>{{ activity.addedBy }} </b></span>
+                </h4>
+              </div>
+              <div class="timeline-footer">
+                {{ activity.activityDate | date : "dd/MM/y hh:mm a" }}</div>
+          </div>
+      </li>
+  </ul>
+</div>
+</mat-card-content>

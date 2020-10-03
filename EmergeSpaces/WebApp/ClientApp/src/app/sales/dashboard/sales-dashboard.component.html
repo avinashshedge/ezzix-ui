@@ -1,0 +1,202 @@
+
+<div fxLayout="row wrap">
+  <div *ngFor="let stage of leadStageData; let i = index" fxFlex.gt-sm="14.28"
+      fxFlex.gt-xs="14.28" fxFlex="100">
+      <mat-card>
+          <mat-card-content>
+              <div class="d-flex no-block">
+                  <div>
+                      <h3 class="m-0">{{ stage.y }}</h3>
+                      <h4 class="text-muted m-0">{{ stage.name }}</h4>
+                  </div>
+              </div>
+          </mat-card-content>
+      </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div *ngFor="let stage of salesAnalyticsData; let i = index"
+      fxFlex.gt-sm="16.66" fxFlex.gt-xs="16.66" fxFlex="100">
+      <mat-card>
+          <mat-card-content>
+              <div class="d-flex no-block">
+                  <div>
+                      <h3 class="m-0">{{ stage.y }}%</h3>
+                      <h4 class="text-muted m-0">{{ stage.name }}</h4>
+                  </div>
+              </div>
+          </mat-card-content>
+      </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="60" fxFlex="100">
+      <mat-card>
+          <mat-card-content>
+              <mat-card-title>Leads by Source</mat-card-title>
+              <div id="sourceChart">
+                  <apx-chart [series]="sourceChartOptions.series" [chart]="sourceChartOptions.chart"
+                      [dataLabels]="sourceChartOptions.dataLabels" [plotOptions]="sourceChartOptions.plotOptions"
+                      [yaxis]="sourceChartOptions.yaxis" [legend]="sourceChartOptions.legend" [fill]="sourceChartOptions.fill"
+                      [stroke]="sourceChartOptions.stroke" [tooltip]="sourceChartOptions.tooltip" [xaxis]="sourceChartOptions.xaxis"
+                      [grid]="sourceChartOptions.grid">
+                  </apx-chart>
+              </div>
+          </mat-card-content>
+      </mat-card>
+  </div>
+</div>
+<div fxLayout="row wrap">
+  <div  fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" >
+    <mat-card>
+      <mat-card-content>
+          <mat-card-title>Sales Growth</mat-card-title>
+          <div id="salesGrowthChart">
+              <apx-chart
+              [series]="salesGrowthChartOptions.series"
+              [chart]="salesGrowthChartOptions.chart"
+              [dataLabels]="salesGrowthChartOptions.dataLabels"
+              [plotOptions]="salesGrowthChartOptions.plotOptions"
+              [yaxis]="salesGrowthChartOptions.yaxis"
+              [xaxis]="salesGrowthChartOptions.xaxis"
+              [fill]="salesGrowthChartOptions.fill"
+              [title]="salesGrowthChartOptions.title"
+            ></apx-chart>
+          </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+          <mat-card-title>Lead Flow</mat-card-title>
+          <div id="leadFlowChart">
+            <apx-chart
+              [series]="leadFlowChartOptions.series"
+              [chart]="leadFlowChartOptions.chart"
+              [dataLabels]="leadFlowChartOptions.dataLabels"
+              [plotOptions]="leadFlowChartOptions.plotOptions"
+              [yaxis]="leadFlowChartOptions.yaxis"
+              [xaxis]="leadFlowChartOptions.xaxis"
+              [fill]="leadFlowChartOptions.fill"
+            ></apx-chart>
+          </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+<div fxLayout="row wrap" *ngIf="role == 'Sales Manager'">
+
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+      <mat-card>
+          <mat-card-content>
+              <mat-card-title>Top Owners by Open Lead</mat-card-title>
+              <div>
+                  <mat-table [dataSource]="openLeadData" matSort>
+                      <ng-container matColumnDef="key">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Owner </mat-header-cell>
+                        <mat-cell *matCellDef="let element">  {{element.key}} </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="value" >
+                        <mat-header-cell *matHeaderCellDef mat-sort-header > Open Leads </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                      </ng-container>
+
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                  </mat-table>
+                  <mat-paginator #openLeadPaginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+              </div>
+          </mat-card-content>
+      </mat-card>
+  </div>
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+      <mat-card>
+          <mat-card-content>
+              <mat-card-title>Top Open Leads By Age(days)</mat-card-title>
+              <div>
+                  <mat-table [dataSource]="agedLeadData" matSort>
+                      <ng-container matColumnDef="key">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Owner </mat-header-cell>
+                        <mat-cell *matCellDef="let element">  {{element.key}} </mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="value" >
+                        <mat-header-cell *matHeaderCellDef mat-sort-header > Lead Age (days) </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                      </ng-container>
+
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                  </mat-table>
+                  <mat-paginator #agedLeadPaginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+              </div>
+          </mat-card-content>
+      </mat-card>
+  </div>
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+    <mat-card>
+        <mat-card-content>
+            <mat-card-title>Top Performer By Conversion</mat-card-title>
+            <div>
+                <mat-table [dataSource]="conversionData" matSort>
+                    <ng-container matColumnDef="key">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Owner </mat-header-cell>
+                      <mat-cell *matCellDef="let element">  {{element.key}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="value" >
+                      <mat-header-cell *matHeaderCellDef mat-sort-header > Conversion (%) </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                </mat-table>
+                <mat-paginator #conversionPaginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+  </div>
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+    <mat-card>
+        <mat-card-content>
+            <mat-card-title>Top Performer By Won</mat-card-title>
+            <div>
+                <mat-table [dataSource]="wonData" matSort>
+                    <ng-container matColumnDef="key">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Owner </mat-header-cell>
+                      <mat-cell *matCellDef="let element">  {{element.key}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="value" >
+                      <mat-header-cell *matHeaderCellDef mat-sort-header > Won </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                </mat-table>
+                <mat-paginator #wonPaginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>
+

@@ -1,0 +1,152 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="formGroup">
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+
+          <mat-form-field>
+            <mat-select placeholder="Select Projects" name="activityTypes" multiple formControlName="selectedProjects">
+              <mat-option #allSelected (click)="toggleAllSelection()" [value]="0">All</mat-option>
+              <mat-option [value]="project.id" *ngFor="let project of projects"
+              (click)="tosslePerOne(allSelected.viewValue)">
+                {{project.projectName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+      </div>
+
+      <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+
+        <mat-form-field>
+          <mat-select placeholder="Select Users" name="selectedUsers" multiple formControlName="selectedUser">
+            <mat-option #allUserSelected (click)="toggleAllSelectionUser()" [value]="0">All</mat-option>
+            <mat-option [value]="user.id" *ngFor="let user of users"
+            (click)="tosslePerOneUser(allUserSelected.viewValue)">
+              {{user.fullName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+    </div>
+
+      <div class="p-10" fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100">
+
+        <mat-form-field>
+          <input
+              matInput
+              ngxDaterangepickerMd
+              placeholder="Choose date"
+              formControlName="selected"
+              [showCustomRangeLabel]="true"
+              [alwaysShowCalendars]="true"
+              [ranges]="ranges"
+              [showClearButton]="true"
+              [showCancel]="true"
+              [linkedCalendars]="false"
+              [locale]="{ applyLabel: 'Done' }"
+              [keepCalendarOpeningWithRange]="true"
+              [showRangeLabelOnInput]="true"
+          />
+      </mat-form-field>
+      </div>
+
+      <div class="p-10" fxFlex.gt-sm="15" fxFlex.gt-xs="15" fxFlex="100">
+      </div>
+      <div class="p-10" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+      </div>
+      <div class="p-10" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+          <button mat-raised-button [disabled]="isSubmitted" color="primary" fxLayoutAlign="end" (click)="onGenerate()">
+            Generate</button>
+      </div>
+
+    </div>
+  </form>
+<hr>
+  <div fxLayout="row wrap" *ngIf="list !=null">
+    <div class="p-10" fxFlex.gt-sm="80"  fxFlex.gt-xs="80" fxFlex="100">
+
+    </div>
+    <div class="p-10" fxFlex.gt-sm="20"  fxFlex.gt-xs="20" fxFlex="100">
+        <button mat-raised-button class="m-r-5"  color="primary" (click)="downloadPdf()">Download Pdf</button>
+
+
+        <button mat-raised-button  color="primary" (click)="ExportTOExcel()">Export To Excel</button>
+
+    </div>
+  </div>
+  <div fxLayout="row wrap" *ngIf="list != null && list.length > 0">
+    <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" #TABLE>
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Name </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+              {{element.name}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="mobileNo">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+              {{element.mobileNo}}
+            </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="emailId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Email Id </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+              {{element.emailId}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="leadOwner">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Owner </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+              {{element.leadOwner}}
+            </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="projectName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Project </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.projectName}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="stageDescription">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Stage Description </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.stageDescription}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="createdDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.createdDate | date : "dd/MM/y hh:mm a"}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="updatedDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.updatedDate | date : "dd/MM/y hh:mm a"}} </mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="loading">
+          <mat-footer-cell *matFooterCellDef colspan="6">
+              Loading data...
+          </mat-footer-cell>
+        </ng-container> -->
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <!-- <mat-footer-row *matFooterRowDef="['loading']" ngClass="{'hide-loading-row':dataSource !=null}"></mat-footer-row> -->
+
+      </mat-table>
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 20,50,100]" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+
+  </mat-card-content>
+</mat-card>

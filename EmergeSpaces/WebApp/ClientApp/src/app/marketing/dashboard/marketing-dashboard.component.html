@@ -1,0 +1,128 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="d-flex no-block">
+                   <div>
+                        <h3 class="m-0">{{kpiDetails.leadGrowth}}</h3>
+                        <h4 class="text-muted m-0">Lead Growth</h4>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>   
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="d-flex no-block">
+                   <div>
+                        <h3 class="m-0">{{kpiDetails.unmanaged}}</h3>
+                        <h4 class="text-muted m-0">Unmanaged Leads</h4>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>    
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="d-flex no-block">
+                   <div>
+                        <h3 class="m-0">{{kpiDetails.leadsCreated}}</h3>
+                        <h4 class="text-muted m-0">Total Leads Created</h4>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>   
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="d-flex no-block">
+                   <div>
+                        <h3 class="m-0">{{kpiDetails.leadConverted}}</h3>
+                        <h4 class="text-muted m-0">Lead Converted</h4>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>   
+</div>
+
+<div fxLayout="row wrap">
+    <div fxFlex.gt-lg="33.33" fxFlex.gt-md="60" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Leads by Source</mat-card-title>
+                <div id="sourceChart">
+                    <apx-chart [series]="sourceChartOptions.series" [chart]="sourceChartOptions.chart"
+                        [dataLabels]="sourceChartOptions.dataLabels" [plotOptions]="sourceChartOptions.plotOptions"
+                        [yaxis]="sourceChartOptions.yaxis" [legend]="sourceChartOptions.legend" [fill]="sourceChartOptions.fill"
+                        [stroke]="sourceChartOptions.stroke" [tooltip]="sourceChartOptions.tooltip" [xaxis]="sourceChartOptions.xaxis"
+                        [grid]="sourceChartOptions.grid">
+                    </apx-chart>
+                </div>                
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="25" fxFlex.gt-md="40" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Facebook</mat-card-title>
+                <div id="fb-chart">
+                    <apx-chart
+                      [series]="fbChartOptions.series"
+                      [chart]="fbChartOptions.chart"
+                      [labels]="fbChartOptions.labels"
+                      [responsive]="fbChartOptions.responsive"
+                    ></apx-chart>
+                  </div>
+            </mat-card-content>           
+        </mat-card>
+    </div>   
+</div>
+
+<div fxLayout="row wrap">
+    <div fxFlex.gt-lg="75" fxFlex.gt-md="60" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Lead Timeline</mat-card-title>
+                <div id="timeline-chart">
+                    <apx-chart [series]="timelinechartOptions.series" [chart]="timelinechartOptions.chart"
+                        [xaxis]="timelinechartOptions.xaxis" [stroke]="timelinechartOptions.stroke"
+                        [tooltip]="timelinechartOptions.tooltip" [dataLabels]="timelinechartOptions.dataLabels"
+                        [legend]="timelinechartOptions.legend" [colors]="timelinechartOptions.colors"
+                        [markers]="timelinechartOptions.markers">
+                    </apx-chart>
+                </div>               
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-lg="75" fxFlex.gt-md="40" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Landing Page & Website</mat-card-title>
+                <div>
+                    <mat-table #table [dataSource]="dataSource" matSort>
+                        <ng-container matColumnDef="name">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                          <mat-cell *matCellDef="let element">  {{element.name}} </mat-cell>
+                        </ng-container>
+              
+                        <ng-container matColumnDef="y" >
+                          <mat-header-cell *matHeaderCellDef mat-sort-header > Lead Count </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.y}} </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                      
+                    </mat-table>
+                    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+     
+                </div>                    
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>  

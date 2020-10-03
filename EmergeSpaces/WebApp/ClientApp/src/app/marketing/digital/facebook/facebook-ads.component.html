@@ -1,0 +1,62 @@
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="row wrap" fxLayoutAlign="end">
+            <div  fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="100">
+            <mat-form-field *ngIf="isLoggedIn">
+                <mat-select placeholder="Select page" [(ngModel)]="selectedPage" (ngModelChange)="onPageSelect(selectedPage)">
+                  <mat-option *ngFor="let x of pageAccountDetails" [value]="x">{{x.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div  fxFlex.gt-sm="5" fxFlex.gt-xs="5" fxFlex="100">
+                <button mat-raised-button *ngIf="!isLoggedIn" color="primary" class="m-r-10" (click)="submitLogin()">Login</button>
+                <button mat-raised-button *ngIf="isLoggedIn" color="primary" class="m-r-10" (click)="fbLogout()">Logout</button>
+      
+            </div>
+        </div>
+        <br>
+
+        <div class="responsive-table" *ngIf="ads.length > 0">
+            <mat-table #table [dataSource]="dataSource" matSort>
+    
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="leads_count">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Lead Count </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.leads_count}} </mat-cell>
+                </ng-container>
+  
+              <ng-container matColumnDef="created_time" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header > Created On </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.created_time | date : "dd/MM/y hh:mm a"}} </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let row"> 
+                  <button mat-icon-button (click)="showSyncModal(row)"><mat-icon>sync</mat-icon></button>
+                </mat-cell>
+              </ng-container>
+              <!-- <ng-container matColumnDef="loading">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    Loading data...
+                </mat-footer-cell>
+              </ng-container> -->
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              <!-- <mat-footer-row *matFooterRowDef="['loading']" ngClass="{'hide-loading-row':dataSource !=null}"></mat-footer-row> -->
+    
+            </mat-table>
+            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20,50]" showFirstLastButtons></mat-paginator>
+          </div>
+
+    </mat-card-content>
+</mat-card>

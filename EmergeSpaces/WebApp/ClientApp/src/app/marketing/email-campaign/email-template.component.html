@@ -1,0 +1,43 @@
+<mat-card>
+    <mat-card-content>
+        <mat-card-title>
+            Email Templates
+            <div mat-card-actions fxLayoutAlign="end">
+                <button mat-raised-button type="button" (click)="onCancel()" style="margin-right: 10px;">Cancel</button>
+                <button mat-raised-button color="primary" type="submit" (click)="onSave()">Save</button>
+            </div>
+        </mat-card-title>
+
+        <div fxLayout="row wrap">
+            <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" >
+              <mat-form-field>
+                <input type="text" matInput placeholder="Template Name" required [(ngModel)]="templateName">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+              <mat-form-field>
+                <input type="text" required matInput placeholder="Subject" [(ngModel)]="subject">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap">
+            <div class="p-10" fxFlex.gt-sm="33" fxFlex.gt-xs="33" fxFlex="100">
+                <mat-form-field>
+                    <mat-select placeholder="Select User" [(ngModel)]="userId" required>
+                      <mat-option *ngFor="let x of users" [value]="x.emailId">{{x.fullName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                <div id="editor" style="height:500px;"></div>
+            </div>
+          </div>
+
+    </mat-card-content>
+
+</mat-card>

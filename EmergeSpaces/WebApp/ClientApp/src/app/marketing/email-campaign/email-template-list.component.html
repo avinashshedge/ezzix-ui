@@ -1,0 +1,57 @@
+<mat-card>
+    <mat-card-content>
+        <div mat-card-actions fxLayoutAlign="end">
+            <button mat-raised-button type="button" (click)="redirectToDashboard()" style="margin-right: 10px;">Cancel</button>
+            <button mat-raised-button color="primary" type="button" (click)="redirectToTemplate()">New Template</button>
+        </div>
+        <div fxFill fxLayout="column" fxLayoutAlign="space-between" id="dvTemplate">
+            <div fxLayout="row wrap" style="margin-top:10px;">
+                <ng-container *ngFor="let template of data">
+                    <mat-card>
+                        <mat-card-title class="matcard-template-title">{{template.templateName}}</mat-card-title>
+                        <img style="padding: 10px;" mat-card-image height="160px" src="https://ezzixstorage.blob.core.windows.net/email-images/{{template.templateUrl}}">
+                        <mat-card-actions fxLayoutAlign="center" style="padding-bottom:10px;">
+                            <button mat-stroked-button type="button" (click)="onDesktopPreview(template.templateHtml)">Preview</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </ng-container>
+            </div>
+            <mat-paginator [length]="templates.length"
+                    [pageSize]="size"
+                    [pageIndex]="page"
+                    [pageSizeOptions]="[10]"
+                    (page)="getData($event)">
+            </mat-paginator>
+        </div>
+</mat-card-content>
+</mat-card>
+<style>
+    #dvTemplate .mat-card-image:first-child{
+        margin-top: 0px !important;
+    }
+    #dvTemplate .mat-card{
+        border: 1px solid #c8c8c8;
+        margin: 10px;
+    }
+    #dvTemplate .mat-card .mat-card-content {
+        font-size: 0.8rem;
+        line-height: 15px;
+        padding: 5px;
+
+    }
+
+    .matcard-template-title{
+        padding: 10px;
+                        margin: auto;
+                        text-align: center;
+                        background: #f4f4f4;
+                        border-bottom: 1px solid #c8c8c8;
+                        font-weight: 400;
+    }
+    img {
+        max-height: 160px;
+        max-width: 219px;
+        margin-left: 8px;
+        margin-bottom: 8px;
+    }
+</style>

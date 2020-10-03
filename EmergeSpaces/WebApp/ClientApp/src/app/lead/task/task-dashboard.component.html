@@ -1,0 +1,117 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Task Statistics </mat-card-title>
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+            <mat-card>
+              <mat-card-content>
+                <div class="d-flex no-block">
+                  <div>
+                    <h3 class="m-0">{{ taskStatus.completedCount }}</h3>
+                    <h4 class="text-muted m-0">Completed</h4>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+            <mat-card>
+              <mat-card-content>
+                <div class="d-flex no-block">
+                  <div>
+                    <h3 class="m-0">{{ taskStatus.inprogressCount }}</h3>
+                    <h4 class="text-muted m-0">Inprogress</h4>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+            <mat-card>
+              <mat-card-content>
+                <div class="d-flex no-block">
+                  <div>
+                    <h3 class="m-0">{{ taskStatus.dueCount }}</h3>
+                    <h4 class="text-muted m-0">Due</h4>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div>
+  <mat-card>
+    <mat-card-content>
+      <div>
+
+        <mat-menu #appMenu="matMenu">
+          <ng-template matMenuContent let-taskId="taskId">
+            <button mat-menu-item (click)="changeTaskStatus(taskId)">Mark as Complete</button>
+          </ng-template>
+        </mat-menu>
+
+        <mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="leadFullName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Lead </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <a style="color: blue;cursor: pointer;"
+                  [routerLink]="['/', 'lead','timeline',element.leadId,'presale']">
+                  {{element.leadFullName}}
+              </a>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+            <mat-cell *matCellDef="let element" ngClass="task-{{element.status}}">
+              {{element.status}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="dueDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.dueDate | date : "dd/MM/y hh:mm a"}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="reminder">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Reminder </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.reminder}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button [matMenuTriggerFor]="appMenu"
+                [matMenuTriggerData]="{taskId: element.taskId}">
+                  <mat-icon>more_vert</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10,20,50,100]" showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

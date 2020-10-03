@@ -1,0 +1,78 @@
+<span mat-dialog-title>Lead Subsource</span>
+<mat-divider></mat-divider>
+<form [formGroup]="subsourceForm" (submit)="onSave()">
+<div mat-dialog-content>
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-form-field>
+                <mat-select placeholder="Select Lead source" [formControl]="f.leadSourceId" required>
+                  <mat-option *ngFor="let x of leadsources" [value]="x.id">{{x.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+           <mat-form-field>
+            <input  matInput maxlength="50" required placeholder="Subsource Name" [formControl]="f.name">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div class="p-10 m-r-10" fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+           <mat-form-field>
+            <input  matInput required placeholder="Std Code" [formControl]="f.stdCode" maxlength="3">
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="40" fxFlex.gt-xs="40" fxFlex="100">
+            <mat-form-field>
+             <input  matInput required placeholder="DID Number" [formControl]="f.didNo" maxlength="10">
+           </mat-form-field>
+         </div>
+      </div>
+   
+</div>
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!subsourceForm.valid">Submit</button>
+</div>
+
+</form>
+
+<!-- <div class="ui-dialog-content">
+    <div class="row">
+        <div class="form-group col-sm-12 row">
+            <label class="col-sm-4 col-form-label" for="Report_To">Lead Source <sup>*</sup></label>
+            <div class="col-sm-8">
+                <select class="form-control" [(ngModel)]="leadSourceId">
+                    <option *ngFor="let x of leadsources" [ngValue]="x.id">{{x.name}}</option>
+                </select>
+            </div>
+        </div>       
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 row">
+            <label class="col-sm-4 col-form-label" for="Last_name">Name <sup>*</sup></label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" [(ngModel)]="name" maxlength="50" placeholder="lead sub source name" />
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 row">
+            <label class="col-sm-4 col-form-label" for="Report_To">DID Number<sup>*</sup></label>
+            <div class="col-sm-3">
+                <input type="text" [(ngModel)]="stdCode" class="form-control" maxlength="3" placeholder="std code">
+            </div>
+            <div class="col-sm-5">
+                <input type="text" [(ngModel)]="didNo" class="form-control" maxlength="10" placeholder="DID Number">
+            </div>
+        </div>       
+    </div>
+</div>
+<div class="ui-dialog-footer">
+    <button type="submit" class="btn btn-primary" (click)="onSave()">Save</button>    
+</div> -->

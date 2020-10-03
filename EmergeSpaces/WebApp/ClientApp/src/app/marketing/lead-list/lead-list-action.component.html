@@ -1,0 +1,78 @@
+<h1 mat-dialog-title>Lead List</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="leadListForm" (submit)="onSave()">
+    
+<div mat-dialog-content>
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Lead list name" [formControl]="f.listName" required>
+          </mat-form-field>
+          <mat-hint
+            *ngIf="f.listName.hasError('required') && f.listName.touched"
+            class="text-danger font-14">You must include a name.</mat-hint>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select required placeholder="Select criteria" [formControl]="f.criteria" (ngModelChange)="onCriteriaChange()">
+              <mat-option *ngFor="let x of criteriaList" [value]="x.key">{{x.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-form-field *ngIf="leadListForm.value['criteria'] == 'lead-source'" >
+                <mat-select multiple placeholder="Select source" [formControl]="f.description" required>
+                  <mat-option *ngFor="let x of leadSourceList" [value]="x.id">{{x.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="leadListForm.value['criteria'] == 'project'" >
+                <mat-select multiple placeholder="Select project" [formControl]="f.description" required>
+                  <mat-option *ngFor="let x of projectList" [value]="x.id">{{x.projectName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="leadListForm.value['criteria'] == 'lead-stage'" >
+                <mat-select multiple placeholder="Select stage" [formControl]="f.description" required>
+                  <mat-option *ngFor="let x of leadStageList" [value]="x.id">{{x.stage}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="leadListForm.value['criteria'] == 'activity-type'" >
+                <mat-select multiple placeholder="Select type" [formControl]="f.description" required>
+                  <mat-option *ngFor="let x of activityTypeList" [value]="x.id">{{x.activityName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="leadListForm.value['criteria'] == 'budget'" >
+                <mat-select multiple placeholder="Select type" [formControl]="f.description" required>
+                  <mat-option *ngFor="let x of budgetRangeList" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="leadListForm.value['criteria'] == 'state'" >
+                <mat-select multiple placeholder="Select state" [formControl]="f.description" required>
+                  <mat-option *ngFor="let x of stateList" [value]="x.id">{{x.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="leadListForm.value['criteria'] == 'owner'" >
+                <mat-select multiple placeholder="Select owner" [formControl]="f.description" required>
+                  <mat-option *ngFor="let x of ownerList" [value]="x.id">{{x.fullName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+          
+          <mat-form-field *ngIf="leadListForm.value['criteria'] == 'lead-age' || leadListForm.value['criteria'] == 'city'">
+            <input  matInput placeholder="Description" [formControl]="f.description">
+          </mat-form-field>
+        </div>
+      </div>
+   
+</div>
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!leadListForm.valid">Submit</button>
+</div>
+
+</form>

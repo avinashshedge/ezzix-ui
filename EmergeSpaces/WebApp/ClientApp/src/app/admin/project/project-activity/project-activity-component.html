@@ -1,0 +1,105 @@
+<h1 mat-dialog-title>Project Information</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="projectForm" (submit)="saveProject()">
+    
+<div mat-dialog-content>
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Project name" [formControl]="projectForm.controls['projectName']" required>
+          </mat-form-field>
+          <mat-hint
+            *ngIf="projectForm.controls['projectName'].hasError('required') && projectForm.controls['projectName'].touched"
+            class="text-danger font-14">You must include a project name.</mat-hint>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Project code" [formControl]="projectForm.controls['projectCode']">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput [matDatepicker]="startdatepicker" [formControl]="projectForm.controls['estimatedStartDate']"
+              placeholder="Project start date">
+            <mat-datepicker-toggle matSuffix [for]="startdatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #startdatepicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" [formControl]="projectForm.controls['estimatedEndDate']"
+              placeholder="Project end date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Rera No" [formControl]="projectForm.controls['reraNo']">
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Currency" [formControl]="projectForm.controls['currencyId']">
+              <mat-option [value]="1">INR</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Total saleable area" [formControl]="projectForm.controls['totalSaleableArea']">
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Additional details" [formControl]="projectForm.controls['projectDetails']">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select Country" [formControl]="projectForm.controls['countryId']">
+              <mat-option *ngFor="let x of countryList" [value]="x.id">{{x.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-select placeholder="Select State" [formControl]="projectForm.controls['stateId']">
+              <mat-option *ngFor="let x of stateList" [value]="x.id">{{x.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="City" [formControl]="projectForm.controls['city']">
+          </mat-form-field>
+        </div>
+
+      </div>
+   
+</div>
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!projectForm.valid">Submit</button>
+</div>
+
+</form>

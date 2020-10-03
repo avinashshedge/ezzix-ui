@@ -1,0 +1,146 @@
+<div>
+    <section class="post-heading">
+        <div class="row">
+            <div class="col-md-11">                
+                <div>
+                    <a class="anchor-username"><span class="media-heading">{{post.from.name}}</span></a> 
+                </div>
+            </div>                    
+        </div>             
+    </section>
+    <section class="post-body">
+        <p>{{ post.message }}</p>
+        <div *ngIf="post.picture" class="mt-2">
+            <img src="{{ post.picture }}" alt="No Picture Found" height="120" width="160">
+        </div>
+        <div *ngIf="!post.picture">
+            <img src="./../../../../assets/no_preview.png" alt="No Picture Found" height="120" width="160">
+        </div>
+        
+    </section>
+    <hr>
+  
+</div>
+
+<div class="comment-box row">
+    <div fxLayout="row wrap">
+        <div class="p-10" fxFlex.gt-sm="80" fxFlex.gt-xs="80" fxFlex="100">
+            <mat-form-field>
+                <input matInput type="text" [(ngModel)]="newComment" placeholder="Write a comment..." >
+            </mat-form-field>
+            
+        </div>
+        <div class="p-10" fxFlex.gt-sm="20" fxFlex.gt-xs="20" fxFlex="100">
+            <button mat-raised-button color="primary" (click)="onComment(newComment)">Send</button>
+        </div>
+    </div>
+</div>
+<ul *ngFor="let comment of comments" style="list-style-type: none;padding: 0;">
+    <li>
+        <div class="outerbox-comment">
+                <div class="media-body">
+                    <a class="anchor-username">{{ comment.from.name }}</a>
+                    <span class="anchor-message">{{comment.message}}</span>
+                </div>
+        </div>
+        <div style="margin-left:10px;">
+            <a class="outerbox-reply-link" (click)="showReplies(comment)">
+                Reply ({{ comment.comments != undefined ? comment.comments.data.length : 0 }})</a>
+        </div>
+        <div *ngIf="comment.showReplies">
+                <div *ngIf="comment.comments != null">
+                    <ul *ngFor="let reply of comment.comments.data" style="list-style-type: none;padding: 0;">
+                        <li>
+                            <div class="outerbox-comment reply-box">
+                                <div class="media-body">
+                                    <a class="anchor-username">{{ reply.from.name }}</a>
+                                    <span class="anchor-message">{{reply.message}}</span>
+                                </div>
+                            </div>                                                
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="reply-box row">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" [(ngModel)]="replyMessage" placeholder="Write a reply...">
+                    </div>
+                    <div class="col-md-2">
+                        <button mat-button color="primary" (click)="onReply(comment.id,replyMessage)">Reply</button>
+                    </div>
+                    
+                </div>
+        </div>
+    </li>
+</ul>
+<style>
+    
+.anchor-time{
+    color:#ADB2BB;
+    font-size:0.90rem;
+}
+
+.comment{
+    background-color:#F6F7F8;
+    margin: 10px;
+    height: 40px;
+}
+.media{
+    margin: 10px;
+}
+.media-body{
+    padding: 10px;
+}
+.anchor-message{
+    margin-left: 10px; 
+}
+
+
+.outerbox-comment{
+    background-color: #f2f3f5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #1c1e21;
+    min-height: 40px;
+    line-height: 16px;
+    max-width: 100%;
+    word-wrap: break-word;
+    position: relative;
+    white-space: normal;
+    word-break: break-word;
+}
+.outerbox-reply-link{
+    color: #385898 !important;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.anchor-username
+{
+    color: #385898 !important;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+.comment-box{
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+.reply-box{
+    margin-left: 50px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.post-footer-option li{
+    float:left;
+    margin-right:50px;
+    padding-bottom:15px;
+}
+
+.post-footer-option li a{
+    color:#AFB4BD;
+    font-weight:500;
+    font-size:1.3rem;
+}
+</style>

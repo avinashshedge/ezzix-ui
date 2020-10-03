@@ -1,0 +1,66 @@
+<h1 mat-dialog-title>Quick Lead</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="quick_lead_form" (submit)="onSubmit()">
+
+<div mat-dialog-content>
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="First name" [formControl]="f.firstName" required>
+          </mat-form-field>
+          <mat-hint *ngIf="f.firstName.hasError('required') && f.firstName.touched"
+            class="text-danger font-14">You must include a first name.</mat-hint>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Last name" [formControl]="f.lastName">
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Primary Mobile" maxlength="10"
+            required [formControl]="f.primaryNumber" type="text">
+          </mat-form-field>
+          <small *ngIf="f.primaryNumber.hasError('required') && f.primaryNumber.touched" class="text-danger font-14">You must include an phone number.</small>
+          <small *ngIf="f.primaryNumber.errors?.invalidNumber && f.primaryNumber.touched" class="text-danger font-14">You must include a valid phone number.</small>
+          <small *ngIf="f.primaryNumber.errors?.isNumberExists" class="text-danger font-14">
+            Mobile number already exist
+          </small>
+          <small *ngIf="f.primaryNumber.errors?.isNumberExists"
+          class="text-danger font-14">
+           Mobile already exist
+         </small>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Email Id" required [formControl]="f.emailId" type="email">
+          </mat-form-field>
+          <small *ngIf="f.emailId.hasError('required') && f.emailId.touched" class="text-danger font-14">You must include an email address.</small>
+          <small *ngIf="f.emailId.errors?.email && f.emailId.touched" class="text-danger font-14">You must include a valid email address.</small>
+          <small *ngIf="f.emailId.errors?.isEmailExists" class="text-danger font-14">
+              Email already exist
+         </small>
+         <small *ngIf="f.emailId.errors?.isEmailExists"
+           class="text-danger font-14">
+            Email already exist
+          </small>
+        </div>
+      </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-raised-button type="button" (click)="onClose()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!quick_lead_form.valid">Submit</button>
+</div>
+
+</form>
